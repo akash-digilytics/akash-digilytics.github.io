@@ -3,7 +3,7 @@
   "info": {
     "version": "0.0.1",
     "title": "RevEl API Documentation",
-    "termsOfService": "https://example.com/terms/",
+    "termsOfService": "",
     "contact": {
       "email": "contact@digilytics.ai",
       "url": "https://www.digilytics.ai/contact-us"
@@ -23,7 +23,7 @@
   "tags": [
     {
       "name": "Authentication API",
-      "description": "- Authentication API enables customers and end users to have a single-entry point for authentication.\r\n  Whether it is a product integration or service integration approach, the authentication endpoint is\r\n  common for both.\r\n\r\n- This API end point can be used to authenticate against RevEl and generate a JWT token which can be\r\n  used against other parts of the API which require authentication.\r\n\r\n\r\n<i>*The Authentication Token will expire after 7 days or before licence expiry date of the Company, (whichever\r\n  is less). API endpoint will need to be utilised again to generate a new token once a token is expired. </i>"
+      "description": "- Authentication API enables customers and end users to have a single-entry point for authentication.\r\n  Whether it is a product integration or service integration approach, the authentication endpoint is\r\n  common for both.\r\n\r\n- This API end point can be used to authenticate against RevEl and generate a JWT token which can be\r\n  used against other parts of the API which require authentication.\r\n\r\n\r\n<i>*The Authentication Token will expire after 7 days or before licence expiry date of the Company, (whichever\r\n  is less). API endpoint will need to be utilised again to generate a new token once a token is expired. </i>\r\n\r\n### Utilising the Authentication Token \r\n\r\n- Once the API has returned an Authentication Token, it needs to be set in further calls to the API in\r\n  header named \"Authorization\", prefixed with the term \"Bearer-\". \r\n\r\n```\r\ncurl -X GET --header 'Accept: application/json' --header 'Authorization: Bearer-\r\n 63d92e33d4e8 'https://client-id.digilytics.solutions/api/v1/oculyse/api/v1/{compa \r\nnyId}/e-file/{productId}/download/' \r\n <!-- (Note: Line breaks and additional request param are removed for ease of readi \r\nng only) -->\r\n\r\n```\r\n   where 63d92e33d4e8 is the token returned from the Authentication API. Token has been truncated for\r\nbrevity. \r\n"
     }
   ],
   "servers": [
@@ -121,11 +121,11 @@
         "properties": {
           "email": {
             "type": "string",
-            "description": "Email of the user."
+            "description": "The unique client email provided. Supplied offline with configuration sheet"
           },
           "password": {
             "type": "string",
-            "description": "Password of the user."
+            "description": "Password for a user, set up while onboarding a client, supplied by RevEl separately"
           }
         }
       },
@@ -137,22 +137,27 @@
             "type": "string"
           },
           "email": {
-            "type": "string"
+            "type": "string",
+            "description": "User email-id"
           },
           "id": {
+            "description": "User Id",
             "type": "integer",
             "format": "int64"
           },
           "name": {
+            "description": "Name of the user",
             "type": "string"
           },
           "roles": {
+            "description": "List of assigned roles",
             "type": "array",
             "items": {
               "type": "string"
             }
           },
           "rolesDisplayName": {
+            "description": "List of display name of the roles. Example: ROLE_ADMIN = Role Admin ",
             "type": "array",
             "items": {
               "type": "string"
@@ -165,7 +170,8 @@
         "type": "object",
         "properties": {
           "idToken": {
-            "type": "string"
+            "type": "string",
+            "description": "Access Token for calling subsequent APIs."
           },
           "loginType": {
             "type": "string",

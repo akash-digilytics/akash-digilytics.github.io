@@ -296,6 +296,221 @@
         }
       }
     },
+    "/oculyse/api/v1/{companyId}/e-file/{productId}/download/": {
+      "get": {
+        "tags": [
+          "Archive Case"
+        ],
+        "description": "To get the download link for an entire case including the Section, Section Version or New Documents. (Getting all the links or files related to a particular case for archiving.)",
+        "summary": "download",
+        "operationId": "archiveACaseUsingGET",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Id Token to access the protected resource.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "companyId",
+            "in": "path",
+            "description": "companyId",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "productId",
+            "in": "path",
+            "description": "productId",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "type",
+            "schema": {
+              "type": "string",
+              "default": "LINK",
+              "enum": [
+                "LINK"
+              ]
+            }
+          },
+          {
+            "name": "businessEntityId",
+            "in": "query",
+            "description": "businessEntityId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Boolean status.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessCaseArchiveModel"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Bad credentials",
+            "content": {}
+          },
+          "403": {
+            "description": "Access forbidden.",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found.",
+            "content": {}
+          }
+        },
+        "x-codeSamples": [
+          {
+            "lang": "C#",
+            "source": "var client = new RestClient(\"https://client-id.digilytics.solutions/oculyse/api/v1/{companyId}/e-file/{productId}/download/?type=LINK&businessEntityId=string\");\r\nclient.Timeout = -1;\r\nvar request = new RestRequest(Method.GET);\r\nrequest.AddHeader(\"accept\", \"*/*\");\r\nrequest.AddHeader(\"Authorization\", \"String\");\r\nIRestResponse response = client.Execute(request);\r\nConsole.WriteLine(response.Content);\r\n"
+          },
+          {
+            "lang": "CURL",
+            "source": "curl --location -g --request GET 'https://client-id.digilytics.solutions/oculyse/api/v1/{companyId}/e-file/{productId}/download/?type=LINK&businessEntityId=string' \\\r\n--header 'accept: */*' \\\r\n--header 'Authorization: String'"
+          },
+          {
+            "lang": "JAVA",
+            "source": "OkHttpClient client = new OkHttpClient().newBuilder()\r\n        .build();\r\n        Request request = new Request.Builder()\r\n        .url(\"https://client-id.digilytics.solutions/oculyse/api/v1/{companyId}/e-file/{productId}/download/?type=LINK&businessEntityId=string\")\r\n        .method(\"GET\", null)\r\n        .addHeader(\"accept\", \"*/*\")\r\n        .addHeader(\"Authorization\", \"String\")\r\n        .build();\r\n        Response response = client.newCall(request).execute();"
+          },
+          {
+            "lang": "PHP",
+            "source": "<?php\r\n\r\n$curl = curl_init();\r\n\r\ncurl_setopt_array($curl, array(\r\n  CURLOPT_URL => 'https://client-id.digilytics.solutions/oculyse/api/v1/%7BcompanyId%7D/e-file/%7BproductId%7D/download/?type=LINK&businessEntityId=string',\r\n  CURLOPT_RETURNTRANSFER => true,\r\n  CURLOPT_ENCODING => '',\r\n  CURLOPT_MAXREDIRS => 10,\r\n  CURLOPT_TIMEOUT => 0,\r\n  CURLOPT_FOLLOWLOCATION => true,\r\n  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,\r\n  CURLOPT_CUSTOMREQUEST => 'GET',\r\n  CURLOPT_HTTPHEADER => array(\r\n    'accept: */*',\r\n    'Authorization: String'\r\n  ),\r\n));\r\n\r\n$response = curl_exec($curl);\r\n\r\ncurl_close($curl);\r\necho $response;\r\n"
+          },
+          {
+            "lang": "PYTHON",
+            "source": "import http.client\r\n\r\nconn = http.client.HTTPSConnection(\"client-id.digilytics.solutions\")\r\npayload = ''\r\nheaders = {\r\n  'accept': '*/*',\r\n  'Authorization': 'String'\r\n}\r\nconn.request(\"GET\", \"/oculyse/api/v1/{companyId}/e-file/{productId}/download/?type=LINK&businessEntityId=string\", payload, headers)\r\nres = conn.getresponse()\r\ndata = res.read()\r\nprint(data.decode(\"utf-8\"))"
+          }
+        ]
+      }
+    },
+    "/oculyse/api/v1/{companyId}/e-file/{productId}": {
+      "delete": {
+        "tags": [
+          "Archive Case"
+        ],
+        "description": "Deletes all the data permanently if it is hard deleted. It may take upto 6hrs to delete data completely from the database in case of hard delete.",
+        "summary": "delete a case.",
+        "operationId": "deleteCaseByProductIdCaseUsingDELETE",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Id Token to access the protected resource.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "companyId",
+            "in": "path",
+            "description": "companyId",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "defines the type of delete operation you want to perform. Hard delete: Hard delete means everything will be deleted permanently including static files related to the application. Soft Delete: Only flag is set to deleted. All the data remains inside the system. ",
+            "schema": {
+              "type": "string",
+              "default": "SOFT",
+              "enum": [
+                "SOFT",
+                "HARD"
+              ]
+            }
+          },
+          {
+            "name": "productId",
+            "in": "path",
+            "description": "productId",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "businessEntityId",
+            "in": "query",
+            "description": "businessEntityId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanModel"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No Content",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {}
+          }
+        },
+        "x-codeSamples": [
+          {
+            "lang": "C#",
+            "source": "var client = new RestClient(\"https://client-id.digilytics.solutions/oculyse/api/v1/{companyId}/e-file/{productId}?type=SOFT&businessEntityId=string\");\r\nclient.Timeout = -1;\r\nvar request = new RestRequest(Method.DELETE);\r\nrequest.AddHeader(\"accept\", \"*/*\");\r\nrequest.AddHeader(\"Authorization\", \"String\");\r\nIRestResponse response = client.Execute(request);\r\nConsole.WriteLine(response.Content);"
+          },
+          {
+            "lang": "CURL",
+            "source": "curl --location -g --request DELETE 'https://client-id.digilytics.solutions/oculyse/api/v1/{companyId}/e-file/{productId}?type=SOFT&businessEntityId=string' \\\r\n--header 'accept: */*' \\\r\n--header 'Authorization: String'"
+          },
+          {
+            "lang": "JAVA",
+            "source": "OkHttpClient client = new OkHttpClient().newBuilder()\r\n        .build();\r\n        MediaType mediaType = MediaType.parse(\"text/plain\");\r\n        RequestBody body = RequestBody.create(mediaType, \"\");\r\n        Request request = new Request.Builder()\r\n        .url(\"https://client-id.digilytics.solutions/oculyse/api/v1/{companyId}/e-file/{productId}?type=SOFT&businessEntityId=string\")\r\n        .method(\"DELETE\", body)\r\n        .addHeader(\"accept\", \"*/*\")\r\n        .addHeader(\"Authorization\", \"String\")\r\n        .build();\r\n        Response response = client.newCall(request).execute();"
+          },
+          {
+            "lang": "PHP",
+            "source": "<?php\r\n\r\n$curl = curl_init();\r\n\r\ncurl_setopt_array($curl, array(\r\n  CURLOPT_URL => 'https://client-id.digilytics.solutions/oculyse/api/v1/%7BcompanyId%7D/e-file/%7BproductId%7D?type=SOFT&businessEntityId=string',\r\n  CURLOPT_RETURNTRANSFER => true,\r\n  CURLOPT_ENCODING => '',\r\n  CURLOPT_MAXREDIRS => 10,\r\n  CURLOPT_TIMEOUT => 0,\r\n  CURLOPT_FOLLOWLOCATION => true,\r\n  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,\r\n  CURLOPT_CUSTOMREQUEST => 'DELETE',\r\n  CURLOPT_HTTPHEADER => array(\r\n    'accept: */*',\r\n    'Authorization: String'\r\n  ),\r\n));\r\n\r\n$response = curl_exec($curl);\r\n\r\ncurl_close($curl);\r\necho $response;\r\n"
+          },
+          {
+            "lang": "PYTHON",
+            "source": "import http.client\r\n\r\nconn = http.client.HTTPSConnection(\"client-id.digilytics.solutions\")\r\npayload = ''\r\nheaders = {\r\n  'accept': '*/*',\r\n  'Authorization': 'String'\r\n}\r\nconn.request(\"DELETE\", \"/oculyse/api/v1/{companyId}/e-file/{productId}?type=SOFT&businessEntityId=string\", payload, headers)\r\nres = conn.getresponse()\r\ndata = res.read()\r\nprint(data.decode(\"utf-8\"))"
+          }
+        ]
+      }
+    },
     "/oculyse/api/v1/{companyId}/classification/document": {
       "post": {
         "tags": [
@@ -405,220 +620,27 @@
             "description": "Not Found",
             "content": {}
           }
-        }
-      }
-    },
-    "/oculyse/api/v1/{companyId}/e-file/{productId}/download/": {
-      "get": {
-        "tags": [
-          "Archive Case"
-        ],
-        "description": "To get the download link for an entire case including the Section, Section Version or New Documents. (Getting all the links or files related to a particular case for archiving.)",
-        "summary": "download",
-        "operationId": "archiveACaseUsingGET",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Id Token to access the protected resource.",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "companyId",
-            "in": "path",
-            "description": "companyId",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          },
-          {
-            "name": "productId",
-            "in": "path",
-            "description": "productId",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          },
-          {
-            "name": "type",
-            "in": "query",
-            "description": "type",
-            "schema": {
-              "type": "string",
-              "default": "LINK",
-              "enum": [
-                "LINK"
-              ]
-            }
-          },
-          {
-            "name": "businessEntityId",
-            "in": "query",
-            "description": "businessEntityId",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Boolean status.",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/BusinessCaseArchiveModel"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Bad credentials",
-            "content": {}
-          },
-          "403": {
-            "description": "Access forbidden.",
-            "content": {}
-          },
-          "404": {
-            "description": "Not found.",
-            "content": {}
-          }
         },
         "x-codeSamples": [
           {
             "lang": "C#",
-            "source": "var client = new RestClient(\"https://api-dev.digilytics.solutions/oculyse/api/v1/{companyId}/e-file/{productId}/download/?type=LINK&businessEntityId=string\");\r\nclient.Timeout = -1;\r\nvar request = new RestRequest(Method.GET);\r\nrequest.AddHeader(\"accept\", \"*/*\");\r\nrequest.AddHeader(\"Authorization\", \"String\");\r\nIRestResponse response = client.Execute(request);\r\nConsole.WriteLine(response.Content);\r\n"
+            "source": "var client = new RestClient(\"https://client-id.digilytics.solutions/oculyse/api/v1/{companyId}/classification/document?fileUrl=string&type=AZURE&classificationScore=0.7&externalDocReferenceId=string&externalDocGroupId=string\");\r\nclient.Timeout = -1;\r\nvar request = new RestRequest(Method.POST);\r\nrequest.AddHeader(\"accept\", \"*/*\");\r\nrequest.AddHeader(\"Authorization\", \"string\");\r\nIRestResponse response = client.Execute(request);\r\nConsole.WriteLine(response.Content);"
           },
           {
             "lang": "CURL",
-            "source": "curl --location -g --request GET 'https://api-dev.digilytics.solutions/oculyse/api/v1/{companyId}/e-file/{productId}/download/?type=LINK&businessEntityId=string' \\\r\n--header 'accept: */*' \\\r\n--header 'Authorization: String'"
+            "source": "curl --location -g --request POST 'https://client-id.digilytics.solutions/oculyse/api/v1/{companyId}/classification/document?fileUrl=string&type=AZURE&classificationScore=0.7&externalDocReferenceId=string&externalDocGroupId=string' \\\r\n--header 'accept: */*' \\\r\n--header 'Authorization: string'"
           },
           {
             "lang": "JAVA",
-            "source": "OkHttpClient client = new OkHttpClient().newBuilder()\r\n        .build();\r\n        Request request = new Request.Builder()\r\n        .url(\"https://api-dev.digilytics.solutions/oculyse/api/v1/{companyId}/e-file/{productId}/download/?type=LINK&businessEntityId=string\")\r\n        .method(\"GET\", null)\r\n        .addHeader(\"accept\", \"*/*\")\r\n        .addHeader(\"Authorization\", \"String\")\r\n        .build();\r\n        Response response = client.newCall(request).execute();"
+            "source": "OkHttpClient client = new OkHttpClient().newBuilder()\r\n        .build();\r\n        MediaType mediaType = MediaType.parse(\"text/plain\");\r\n        RequestBody body = RequestBody.create(mediaType, \"\");\r\n        Request request = new Request.Builder()\r\n        .url(\"https://client-id.digilytics.solutions/oculyse/api/v1/{companyId}/classification/document?fileUrl=string&type=AZURE&classificationScore=0.7&externalDocReferenceId=string&externalDocGroupId=string\")\r\n        .method(\"POST\", body)\r\n        .addHeader(\"accept\", \"*/*\")\r\n        .addHeader(\"Authorization\", \"string\")\r\n        .build();\r\n        Response response = client.newCall(request).execute();"
           },
           {
             "lang": "PHP",
-            "source": "<?php\r\n\r\n$curl = curl_init();\r\n\r\ncurl_setopt_array($curl, array(\r\n  CURLOPT_URL => 'https://api-dev.digilytics.solutions/oculyse/api/v1/%7BcompanyId%7D/e-file/%7BproductId%7D/download/?type=LINK&businessEntityId=string',\r\n  CURLOPT_RETURNTRANSFER => true,\r\n  CURLOPT_ENCODING => '',\r\n  CURLOPT_MAXREDIRS => 10,\r\n  CURLOPT_TIMEOUT => 0,\r\n  CURLOPT_FOLLOWLOCATION => true,\r\n  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,\r\n  CURLOPT_CUSTOMREQUEST => 'GET',\r\n  CURLOPT_HTTPHEADER => array(\r\n    'accept: */*',\r\n    'Authorization: String'\r\n  ),\r\n));\r\n\r\n$response = curl_exec($curl);\r\n\r\ncurl_close($curl);\r\necho $response;\r\n"
+            "source": "<?php\r\n\r\n$curl = curl_init();\r\n\r\ncurl_setopt_array($curl, array(\r\n  CURLOPT_URL => 'https://client-id.digilytics.solutions/oculyse/api/v1/%7BcompanyId%7D/classification/document?fileUrl=string&type=AZURE&classificationScore=0.7&externalDocReferenceId=string&externalDocGroupId=string',\r\n  CURLOPT_RETURNTRANSFER => true,\r\n  CURLOPT_ENCODING => '',\r\n  CURLOPT_MAXREDIRS => 10,\r\n  CURLOPT_TIMEOUT => 0,\r\n  CURLOPT_FOLLOWLOCATION => true,\r\n  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,\r\n  CURLOPT_CUSTOMREQUEST => 'POST',\r\n  CURLOPT_HTTPHEADER => array(\r\n    'accept: */*',\r\n    'Authorization: string'\r\n  ),\r\n));\r\n\r\n$response = curl_exec($curl);\r\n\r\ncurl_close($curl);\r\necho $response;\r\n"
           },
           {
             "lang": "PYTHON",
-            "source": "import http.client\r\n\r\nconn = http.client.HTTPSConnection(\"api-dev.digilytics.solutions\")\r\npayload = ''\r\nheaders = {\r\n  'accept': '*/*',\r\n  'Authorization': 'String'\r\n}\r\nconn.request(\"GET\", \"/oculyse/api/v1/{companyId}/e-file/{productId}/download/?type=LINK&businessEntityId=string\", payload, headers)\r\nres = conn.getresponse()\r\ndata = res.read()\r\nprint(data.decode(\"utf-8\"))"
-          }
-        ]
-      }
-    },
-    "/oculyse/api/v1/{companyId}/e-file/{productId}": {
-      "delete": {
-        "tags": [
-          "Archive Case"
-        ],
-        "description": "Deletes all the data permanently if it is hard deleted. It may take upto 6hrs to delete data completely from the database in case of hard delete.",
-        "summary": "delete a case.",
-        "operationId": "deleteCaseByProductIdCaseUsingDELETE",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Id Token to access the protected resource.",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "companyId",
-            "in": "path",
-            "description": "companyId",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          },
-          {
-            "name": "type",
-            "in": "query",
-            "description": "defines the type of delete operation you want to perform. Hard delete: Hard delete means everything will be deleted permanently including static files related to the application. Soft Delete: Only flag is set to deleted. All the data remains inside the system. ",
-            "schema": {
-              "type": "string",
-              "default": "SOFT",
-              "enum": [
-                "SOFT",
-                "HARD"
-              ]
-            }
-          },
-          {
-            "name": "productId",
-            "in": "path",
-            "description": "productId",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          },
-          {
-            "name": "businessEntityId",
-            "in": "query",
-            "description": "businessEntityId",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/BooleanModel"
-                }
-              }
-            }
-          },
-          "204": {
-            "description": "No Content",
-            "content": {}
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {}
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {}
-          }
-        },
-        "x-codeSamples": [
-          {
-            "lang": "C#",
-            "source": "var client = new RestClient(\"https://api-dev.digilytics.solutions/oculyse/api/v1/{companyId}/e-file/{productId}?type=SOFT&businessEntityId=string\");\r\nclient.Timeout = -1;\r\nvar request = new RestRequest(Method.DELETE);\r\nrequest.AddHeader(\"accept\", \"*/*\");\r\nrequest.AddHeader(\"Authorization\", \"String\");\r\nIRestResponse response = client.Execute(request);\r\nConsole.WriteLine(response.Content);"
-          },
-          {
-            "lang": "CURL",
-            "source": "curl --location -g --request DELETE 'https://api-dev.digilytics.solutions/oculyse/api/v1/{companyId}/e-file/{productId}?type=SOFT&businessEntityId=string' \\\r\n--header 'accept: */*' \\\r\n--header 'Authorization: String'"
-          },
-          {
-            "lang": "JAVA",
-            "source": "OkHttpClient client = new OkHttpClient().newBuilder()\r\n        .build();\r\n        MediaType mediaType = MediaType.parse(\"text/plain\");\r\n        RequestBody body = RequestBody.create(mediaType, \"\");\r\n        Request request = new Request.Builder()\r\n        .url(\"https://api-dev.digilytics.solutions/oculyse/api/v1/{companyId}/e-file/{productId}?type=SOFT&businessEntityId=string\")\r\n        .method(\"DELETE\", body)\r\n        .addHeader(\"accept\", \"*/*\")\r\n        .addHeader(\"Authorization\", \"String\")\r\n        .build();\r\n        Response response = client.newCall(request).execute();"
-          },
-          {
-            "lang": "PHP",
-            "source": "<?php\r\n\r\n$curl = curl_init();\r\n\r\ncurl_setopt_array($curl, array(\r\n  CURLOPT_URL => 'https://api-dev.digilytics.solutions/oculyse/api/v1/%7BcompanyId%7D/e-file/%7BproductId%7D?type=SOFT&businessEntityId=string',\r\n  CURLOPT_RETURNTRANSFER => true,\r\n  CURLOPT_ENCODING => '',\r\n  CURLOPT_MAXREDIRS => 10,\r\n  CURLOPT_TIMEOUT => 0,\r\n  CURLOPT_FOLLOWLOCATION => true,\r\n  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,\r\n  CURLOPT_CUSTOMREQUEST => 'DELETE',\r\n  CURLOPT_HTTPHEADER => array(\r\n    'accept: */*',\r\n    'Authorization: String'\r\n  ),\r\n));\r\n\r\n$response = curl_exec($curl);\r\n\r\ncurl_close($curl);\r\necho $response;\r\n"
-          },
-          {
-            "lang": "PYTHON",
-            "source": "import http.client\r\n\r\nconn = http.client.HTTPSConnection(\"api-dev.digilytics.solutions\")\r\npayload = ''\r\nheaders = {\r\n  'accept': '*/*',\r\n  'Authorization': 'String'\r\n}\r\nconn.request(\"DELETE\", \"/oculyse/api/v1/{companyId}/e-file/{productId}?type=SOFT&businessEntityId=string\", payload, headers)\r\nres = conn.getresponse()\r\ndata = res.read()\r\nprint(data.decode(\"utf-8\"))"
+            "source": "import http.client\r\n\r\nconn = http.client.HTTPSConnection(\"client-id.digilytics.solutions\")\r\npayload = ''\r\nheaders = {\r\n  'accept': '*/*',\r\n  'Authorization': 'string'\r\n}\r\nconn.request(\"POST\", \"/oculyse/api/v1/{companyId}/classification/document?fileUrl=string&type=AZURE&classificationScore=0.7&externalDocReferenceId=string&externalDocGroupId=string\", payload, headers)\r\nres = conn.getresponse()\r\ndata = res.read()\r\nprint(data.decode(\"utf-8\"))"
           }
         ]
       }
@@ -683,7 +705,29 @@
             "description": "Not Found",
             "content": {}
           }
-        }
+        },
+        "x-codeSamples": [
+          {
+            "lang": "C#",
+            "source": "var client = new RestClient(\"https://client-id.digilytics.solutions/oculyse/api/v1/{companyId}/classification/document/{documentId}\");\r\nclient.Timeout = -1;\r\nvar request = new RestRequest(Method.GET);\r\nrequest.AddHeader(\"accept\", \"*/*\");\r\nrequest.AddHeader(\"Authorization\", \"string\");\r\nIRestResponse response = client.Execute(request);\r\nConsole.WriteLine(response.Content);"
+          },
+          {
+            "lang": "CURL",
+            "source": "curl --location -g --request GET 'https://client-id.digilytics.solutions/oculyse/api/v1/{companyId}/classification/document/{documentId}' \\\r\n--header 'accept: */*' \\\r\n--header 'Authorization: string'"
+          },
+          {
+            "lang": "JAVA",
+            "source": "OkHttpClient client = new OkHttpClient().newBuilder()\r\n        .build();\r\n        Request request = new Request.Builder()\r\n        .url(\"https://client-id.digilytics.solutions/oculyse/api/v1/{companyId}/classification/document/{documentId}\")\r\n        .method(\"GET\", null)\r\n        .addHeader(\"accept\", \"*/*\")\r\n        .addHeader(\"Authorization\", \"string\")\r\n        .build();\r\n        Response response = client.newCall(request).execute();"
+          },
+          {
+            "lang": "PHP",
+            "source": "<?php\r\n\r\n$curl = curl_init();\r\n\r\ncurl_setopt_array($curl, array(\r\n  CURLOPT_URL => 'https://client-id.digilytics.solutions/oculyse/api/v1/%7BcompanyId%7D/classification/document/%7BdocumentId%7D',\r\n  CURLOPT_RETURNTRANSFER => true,\r\n  CURLOPT_ENCODING => '',\r\n  CURLOPT_MAXREDIRS => 10,\r\n  CURLOPT_TIMEOUT => 0,\r\n  CURLOPT_FOLLOWLOCATION => true,\r\n  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,\r\n  CURLOPT_CUSTOMREQUEST => 'GET',\r\n  CURLOPT_HTTPHEADER => array(\r\n    'accept: */*',\r\n    'Authorization: string'\r\n  ),\r\n));\r\n\r\n$response = curl_exec($curl);\r\n\r\ncurl_close($curl);\r\necho $response;\r\n"
+          },
+          {
+            "lang": "PYTHON",
+            "source": "import http.client\r\n\r\nconn = http.client.HTTPSConnection(\"client-id.digilytics.solutions\")\r\npayload = ''\r\nheaders = {\r\n  'accept': '*/*',\r\n  'Authorization': 'string'\r\n}\r\nconn.request(\"GET\", \"/oculyse/api/v1/{companyId}/classification/document/{documentId}\", payload, headers)\r\nres = conn.getresponse()\r\ndata = res.read()\r\nprint(data.decode(\"utf-8\"))"
+          }
+        ]
       }
     },
     "/api/v1/{companyId}/classification/document/{documentId}/status": {
@@ -746,7 +790,29 @@
             "description": "Not Found",
             "content": {}
           }
-        }
+        },
+        "x-codeSamples": [
+          {
+            "lang": "C#",
+            "source": "var client = new RestClient(\"https://client-id.digilytics.solutions/api/v1/{companyId}/classification/document/{documentId}/status\");\r\nclient.Timeout = -1;\r\nvar request = new RestRequest(Method.GET);\r\nrequest.AddHeader(\"accept\", \"*/*\");\r\nrequest.AddHeader(\"Authorization\", \"string\");\r\nIRestResponse response = client.Execute(request);\r\nConsole.WriteLine(response.Content);"
+          },
+          {
+            "lang": "CURL",
+            "source": "curl --location -g --request GET 'https://client-id.digilytics.solutions/api/v1/{companyId}/classification/document/{documentId}/status' \\\r\n--header 'accept: */*' \\\r\n--header 'Authorization: string'"
+          },
+          {
+            "lang": "JAVA",
+            "source": "OkHttpClient client = new OkHttpClient().newBuilder()\r\n        .build();\r\n        Request request = new Request.Builder()\r\n        .url(\"https://client-id.digilytics.solutions/api/v1/{companyId}/classification/document/{documentId}/status\")\r\n        .method(\"GET\", null)\r\n        .addHeader(\"accept\", \"*/*\")\r\n        .addHeader(\"Authorization\", \"string\")\r\n        .build();\r\n        Response response = client.newCall(request).execute();"
+          },
+          {
+            "lang": "PHP",
+            "source": "<?php\r\n\r\n$curl = curl_init();\r\n\r\ncurl_setopt_array($curl, array(\r\n  CURLOPT_URL => 'https://client-id.digilytics.solutions/api/v1/%7BcompanyId%7D/classification/document/%7BdocumentId%7D/status',\r\n  CURLOPT_RETURNTRANSFER => true,\r\n  CURLOPT_ENCODING => '',\r\n  CURLOPT_MAXREDIRS => 10,\r\n  CURLOPT_TIMEOUT => 0,\r\n  CURLOPT_FOLLOWLOCATION => true,\r\n  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,\r\n  CURLOPT_CUSTOMREQUEST => 'GET',\r\n  CURLOPT_HTTPHEADER => array(\r\n    'accept: */*',\r\n    'Authorization: string'\r\n  ),\r\n));\r\n\r\n$response = curl_exec($curl);\r\n\r\ncurl_close($curl);\r\necho $response;\r\n"
+          },
+          {
+            "lang": "PYTHON",
+            "source": "import http.client\r\n\r\nconn = http.client.HTTPSConnection(\"client-id.digilytics.solutions\")\r\npayload = ''\r\nheaders = {\r\n  'accept': '*/*',\r\n  'Authorization': 'string'\r\n}\r\nconn.request(\"GET\", \"/api/v1/{companyId}/classification/document/{documentId}/status\", payload, headers)\r\nres = conn.getresponse()\r\ndata = res.read()\r\nprint(data.decode(\"utf-8\"))"
+          }
+        ]
       }
     },
     "/api/v1/{companyId}/classification/document/delete": {
@@ -824,7 +890,29 @@
             "description": "Forbidden",
             "content": {}
           }
-        }
+        },
+        "x-codeSamples": [
+          {
+            "lang": "C#",
+            "source": "var client = new RestClient(\"https://client-id.digilytics.solutions/api/v1/{companyId}/classification/document/delete?documentId='integer'&referenceId='string'&groupId='string'\");\r\nclient.Timeout = -1;\r\nvar request = new RestRequest(Method.DELETE);\r\nrequest.AddHeader(\"accept\", \"*/*\");\r\nrequest.AddHeader(\"Authorization\", \"'string'\");\r\nIRestResponse response = client.Execute(request);\r\nConsole.WriteLine(response.Content);"
+          },
+          {
+            "lang": "CURL",
+            "source": "curl --location -g --request DELETE 'https://client-id.digilytics.solutions/api/v1/{companyId}/classification/document/delete?documentId='\\''integer'\\''&referenceId='\\''string'\\''&groupId='\\''string'\\''' \\\r\n--header 'accept: */*' \\\r\n--header 'Authorization: '\\''string'\\'''"
+          },
+          {
+            "lang": "JAVA",
+            "source": "OkHttpClient client = new OkHttpClient().newBuilder()\r\n        .build();\r\n        MediaType mediaType = MediaType.parse(\"text/plain\");\r\n        RequestBody body = RequestBody.create(mediaType, \"\");\r\n        Request request = new Request.Builder()\r\n        .url(\"https://client-id.digilytics.solutions/api/v1/{companyId}/classification/document/delete?documentId='integer'&referenceId='string'&groupId='string'\")\r\n        .method(\"DELETE\", body)\r\n        .addHeader(\"accept\", \"*/*\")\r\n        .addHeader(\"Authorization\", \"'string'\")\r\n        .build();\r\n        Response response = client.newCall(request).execute();"
+          },
+          {
+            "lang": "PHP",
+            "source": "<?php\r\n\r\n$curl = curl_init();\r\n\r\ncurl_setopt_array($curl, array(\r\n  CURLOPT_URL => 'https://client-id.digilytics.solutions/api/v1/%7BcompanyId%7D/classification/document/delete?documentId=\\'integer\\'&referenceId=\\'string\\'&groupId=\\'string\\'',\r\n  CURLOPT_RETURNTRANSFER => true,\r\n  CURLOPT_ENCODING => '',\r\n  CURLOPT_MAXREDIRS => 10,\r\n  CURLOPT_TIMEOUT => 0,\r\n  CURLOPT_FOLLOWLOCATION => true,\r\n  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,\r\n  CURLOPT_CUSTOMREQUEST => 'DELETE',\r\n  CURLOPT_HTTPHEADER => array(\r\n    'accept: */*',\r\n    'Authorization: \\'string\\''\r\n  ),\r\n));\r\n\r\n$response = curl_exec($curl);\r\n\r\ncurl_close($curl);\r\necho $response;\r\n"
+          },
+          {
+            "lang": "PYTHON",
+            "source": "import http.client\r\n\r\nconn = http.client.HTTPSConnection(\"client-id.digilytics.solutions\")\r\npayload = ''\r\nheaders = {\r\n  'accept': '*/*',\r\n  'Authorization': '\\'string\\''\r\n}\r\nconn.request(\"DELETE\", \"/api/v1/{companyId}/classification/document/delete?documentId='integer'&referenceId='string'&groupId='string'\", payload, headers)\r\nres = conn.getresponse()\r\ndata = res.read()\r\nprint(data.decode(\"utf-8\"))"
+          }
+        ]
       }
     },
     "/api/v1/{companyId}/classification/reclassify": {
@@ -905,7 +993,29 @@
             "description": "Not Found",
             "content": {}
           }
-        }
+        },
+        "x-codeSamples": [
+          {
+            "lang": "C#",
+            "source": "var client = new RestClient(\"https://client-id.digilytics.solutions/api/v1/{companyId}/classification/reclassify?documentId=integer&referenceId=string&groupId=string\");\r\nclient.Timeout = -1;\r\nvar request = new RestRequest(Method.GET);\r\nrequest.AddHeader(\"accept\", \"*/*\");\r\nrequest.AddHeader(\"Authorization\", \"string\");\r\nIRestResponse response = client.Execute(request);\r\nConsole.WriteLine(response.Content);"
+          },
+          {
+            "lang": "CURL",
+            "source": "curl --location -g --request GET 'https://client-id.digilytics.solutions/api/v1/{companyId}/classification/reclassify?documentId=integer&referenceId=string&groupId=string' \\\r\n--header 'accept: */*' \\\r\n--header 'Authorization: string'"
+          },
+          {
+            "lang": "JAVA",
+            "source": "OkHttpClient client = new OkHttpClient().newBuilder()\r\n        .build();\r\n        Request request = new Request.Builder()\r\n        .url(\"https://client-id.digilytics.solutions/api/v1/{companyId}/classification/reclassify?documentId=integer&referenceId=string&groupId=string\")\r\n        .method(\"GET\", null)\r\n        .addHeader(\"accept\", \"*/*\")\r\n        .addHeader(\"Authorization\", \"string\")\r\n        .build();\r\n        Response response = client.newCall(request).execute();"
+          },
+          {
+            "lang": "PHP",
+            "source": "<?php\r\n\r\n$curl = curl_init();\r\n\r\ncurl_setopt_array($curl, array(\r\n  CURLOPT_URL => 'https://client-id.digilytics.solutions/api/v1/%7BcompanyId%7D/classification/reclassify?documentId=integer&referenceId=string&groupId=string',\r\n  CURLOPT_RETURNTRANSFER => true,\r\n  CURLOPT_ENCODING => '',\r\n  CURLOPT_MAXREDIRS => 10,\r\n  CURLOPT_TIMEOUT => 0,\r\n  CURLOPT_FOLLOWLOCATION => true,\r\n  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,\r\n  CURLOPT_CUSTOMREQUEST => 'GET',\r\n  CURLOPT_HTTPHEADER => array(\r\n    'accept: */*',\r\n    'Authorization: string'\r\n  ),\r\n));\r\n\r\n$response = curl_exec($curl);\r\n\r\ncurl_close($curl);\r\necho $response;\r\n"
+          },
+          {
+            "lang": "PYTHON",
+            "source": "import http.client\r\n\r\nconn = http.client.HTTPSConnection(\"client-id.digilytics.solutions\")\r\npayload = ''\r\nheaders = {\r\n  'accept': '*/*',\r\n  'Authorization': 'string'\r\n}\r\nconn.request(\"GET\", \"/api/v1/{companyId}/classification/reclassify?documentId=integer&referenceId=string&groupId=string\", payload, headers)\r\nres = conn.getresponse()\r\ndata = res.read()\r\nprint(data.decode(\"utf-8\"))"
+          }
+        ]
       }
     },
     "/api/v1/{companyId}/classification/documents": {
@@ -1014,7 +1124,29 @@
             "description": "Not Found",
             "content": {}
           }
-        }
+        },
+        "x-codeSamples": [
+          {
+            "lang": "C#",
+            "source": "var client = new RestClient(\"https://client-id.digilytics.solutions/api/v1/{companyId}/classification/documents?actionType=string&groupId=string&searchText=string&page=ref&size=ref&sort=asc&sort=desc\");\r\nclient.Timeout = -1;\r\nvar request = new RestRequest(Method.GET);\r\nrequest.AddHeader(\"accept\", \"*/*\");\r\nrequest.AddHeader(\"Authorization\", \"string\");\r\nIRestResponse response = client.Execute(request);\r\nConsole.WriteLine(response.Content);"
+          },
+          {
+            "lang": "CURL",
+            "source": "curl --location -g --request GET 'https://client-id.digilytics.solutions/api/v1/{companyId}/classification/documents?actionType=string&groupId=string&searchText=string&page=ref&size=ref&sort=asc&sort=desc' \\\r\n--header 'accept: */*' \\\r\n--header 'Authorization: string'"
+          },
+          {
+            "lang": "JAVA",
+            "source": "OkHttpClient client = new OkHttpClient().newBuilder()\r\n        .build();\r\n        Request request = new Request.Builder()\r\n        .url(\"https://client-id.digilytics.solutions/api/v1/{companyId}/classification/documents?actionType=string&groupId=string&searchText=string&page=ref&size=ref&sort=asc&sort=desc\")\r\n        .method(\"GET\", null)\r\n        .addHeader(\"accept\", \"*/*\")\r\n        .addHeader(\"Authorization\", \"string\")\r\n        .build();\r\n        Response response = client.newCall(request).execute();"
+          },
+          {
+            "lang": "PHP",
+            "source": "<?php\r\n\r\n$curl = curl_init();\r\n\r\ncurl_setopt_array($curl, array(\r\n  CURLOPT_URL => 'https://client-id.digilytics.solutions/api/v1/%7BcompanyId%7D/classification/documents?actionType=string&groupId=string&searchText=string&page=ref&size=ref&sort=asc&sort=desc',\r\n  CURLOPT_RETURNTRANSFER => true,\r\n  CURLOPT_ENCODING => '',\r\n  CURLOPT_MAXREDIRS => 10,\r\n  CURLOPT_TIMEOUT => 0,\r\n  CURLOPT_FOLLOWLOCATION => true,\r\n  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,\r\n  CURLOPT_CUSTOMREQUEST => 'GET',\r\n  CURLOPT_HTTPHEADER => array(\r\n    'accept: */*',\r\n    'Authorization: string'\r\n  ),\r\n));\r\n\r\n$response = curl_exec($curl);\r\n\r\ncurl_close($curl);\r\necho $response;\r\n"
+          },
+          {
+            "lang": "PYTHON",
+            "source": "import http.client\r\n\r\nconn = http.client.HTTPSConnection(\"client-id.digilytics.solutions\")\r\npayload = ''\r\nheaders = {\r\n  'accept': '*/*',\r\n  'Authorization': 'string'\r\n}\r\nconn.request(\"GET\", \"/api/v1/{companyId}/classification/documents?actionType=string&groupId=string&searchText=string&page=ref&size=ref&sort=asc&sort=desc\", payload, headers)\r\nres = conn.getresponse()\r\ndata = res.read()\r\nprint(data.decode(\"utf-8\"))"
+          }
+        ]
       }
     },
     "/api/v1/{companyId}/extraction/document": {
@@ -1395,50 +1527,6 @@
           }
         }
       },
-      "BaseDocumentModel": {
-        "title": "BaseDocumentModel",
-        "type": "object",
-        "properties": {
-          "addedBy": {
-            "type": "string",
-            "description": "User who has uploaded the file for classification."
-          },
-          "createdOn": {
-            "type": "string",
-            "description": "Document uploading date and time",
-            "format": "date-time"
-          },
-          "efileName": {
-            "type": "string",
-            "description": "Name of the upload document"
-          },
-          "efileOwner": {
-            "type": "string"
-          },
-          "id": {
-            "type": "integer",
-            "description": "id of the uploaded file/document.",
-            "format": "int64"
-          },
-          "message": {
-            "type": "string",
-            "description": "comment at the time of uploading document"
-          },
-          "noOfDocumentsUploaded": {
-            "type": "integer",
-            "description": "Total no of document uploaded inside the given efile/case.",
-            "format": "int64"
-          },
-          "status": {
-            "type": "string",
-            "description": "Status at the time of uploading document"
-          },
-          "url": {
-            "type": "string",
-            "description": "Secure url of the uploaded document"
-          }
-        }
-      },
       "ArchiveSectionLinkModel": {
         "title": "ArchiveSectionLinkModel",
         "type": "object",
@@ -1512,6 +1600,50 @@
             "type": "boolean",
             "description": "Success or failure identifier.",
             "example": false
+          }
+        }
+      },
+      "BaseDocumentModel": {
+        "title": "BaseDocumentModel",
+        "type": "object",
+        "properties": {
+          "addedBy": {
+            "type": "string",
+            "description": "User who has uploaded the file for classification."
+          },
+          "createdOn": {
+            "type": "string",
+            "description": "Document uploading date and time",
+            "format": "date-time"
+          },
+          "efileName": {
+            "type": "string",
+            "description": "Name of the upload document"
+          },
+          "efileOwner": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer",
+            "description": "id of the uploaded file/document.",
+            "format": "int64"
+          },
+          "message": {
+            "type": "string",
+            "description": "comment at the time of uploading document"
+          },
+          "noOfDocumentsUploaded": {
+            "type": "integer",
+            "description": "Total no of document uploaded inside the given efile/case.",
+            "format": "int64"
+          },
+          "status": {
+            "type": "string",
+            "description": "Status at the time of uploading document"
+          },
+          "url": {
+            "type": "string",
+            "description": "Secure url of the uploaded document"
           }
         }
       },

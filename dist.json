@@ -14,16 +14,55 @@
     "x-logo": {
       "url": "https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_170,w_170,f_auto,b_white,q_auto:eco,dpr_1/faxbuv6vzklzr8bzka23"
     },
-    "description": "# Introduction\r\nRevEl is a first of its kind, easy-to-use AI product for helping automate the mortgage origination process.\r\nIt has the ability to classify & extract data from a variety of mortgage documents. It also offers flexibility\r\nto define and manage rules in terms of “Correctness, Completeness and Consistency” across an\r\napplication. You can execute the configured rules & visualize the validation results using our interface (UI).\r\nAdditionally, it also offers an archival of cases based on the business requirement of the client\r\n\r\nIt has a microservices-based application architecture deployed on Azure Kubernetes Service (AKS).\r\nServices are organized around their capabilities and communicate with each other using well-defined\r\ninterfaces.\r\n\r\n# Definition of key terms \r\nThis section explains the key terms used in order to get a better understanding of how the\r\ndifferent APIs function.\r\n---\r\n## Company\r\n- Company is the base entity inside the product. For onboarding a new client, the first step is to create a\r\n  new company and assign relevant licences to it.\r\n\r\n- Upon successful registration, the client gets an id which is internally referred by us as the `companyId`.\r\n  This is required by most of the APIs to access the protected resources.\r\n\r\n## Product\r\n- Once a Company is created within our system, a new Product can be created which is completely client\r\n  specific.\r\n\r\n- Typically, a Product gives you the flexibility to define the structure of your mortgage application & how\r\n  the different documents are going to be logically categorised.\r\n\r\n- At the time of defining the Product, you have the flexibility to define the different Sections, Sub-Sections\r\n  & their aliases.\r\n\r\n- An alias can be used for calling the RESTful API involving operations related to different Sections. A typical\r\n  example of a product is: ***US Residential, UK Commercial*** etc.\r\n\r\n\r\n<img src=\"/images/product.png\">\r\n\r\n\r\n## Section\r\n- A Section is where pages get logically categorised after Classification. You have the ability to define\r\ndifferent Sections and Sub-Sections within a product.</br>\r\nExample :\r\n>Product: **“US commercial”** </br>\r\n>Section: **“Correspondence”** </br>\r\n>Sub-Section: **“Broker Email”**, **“Submission Checklist”** & **“Secure Loan Submission”** </br>\r\n\r\n\r\n- A Sub-Section can also be referred as a Document Category from a business user’s standpoint. </br>\r\n\r\n\r\n<img src=\"/images/section.png\">\r\n\r\n\r\n## Section Version\r\n- A Sub-Section can have multiple versions created within it, called as a Section Version. A Section Version\r\n  refers to the location where the classified pages finally reside. The purpose of having a Section Version is\r\n  to maintain different copies of the same logical documents.\r\n\r\n- However, different clients use this differently based on their requirements and there is no restriction on\r\n  the user as to how he/she wants to store the different set of documents within the different Section\r\n  Versions of a section.\r\n\r\n- After the Classification of the pages within a Section is done by the model, RevEl can either automatically\r\n  create a new Section Version and assign the relevant pages to it or it can keep the classified pages into a\r\n  temporary queue called as New Documents.</br>\r\n\r\n<i>*This behaviour is configurable using the admin configuration console based on the client’s requirement.</i>\r\n\r\n\r\n<img src=\"/images/section_version.png\">\r\n\r\n\r\n## New Document\r\n- RevEl will create a New Documents queue which allows users to manually move these pages into an\r\n  existing /new Section Version.\r\n\r\n<i>*The configuration of the Product for this functionality to work will have to be done in a way so that\r\n  RevEl doesn’t assign the pages classified by the model into a Section Version directly.\r\n</i>\r\n\r\n\r\n<img src=\"/images/new_document.png\">\r\n\r\n\r\n## Business Entity Id\r\n- A `businessEntityId` refers to the applicant’s external reference as supplied to RevEl during a document\r\n  upload from a transactional system using our RESTful API or RevEl (UI)\r\n\r\n\r\n<img src=\"/images/business_entity_id.png\">\r\n\r\n\r\n## Case Id\r\n- Case Id is the additional Id generated within RevEl corresponding to the applicant’s external reference\r\n  (Business Entity Id).\r\n\r\n- This is mostly used for an internal reference.\r\n\r\n\r\n<img src=\"/images/product.png\">\r\n\r\n\r\n[comment]: <> (  <img src=\"https://th.bing.com/th/id/OIP.Ix6XjMbuCvoq3EQNgJoyEQHaFj?pid=ImgDet&rs=1\">)\r\n\r\n\r\n\r\n\r\n[comment]: <> (<pre><code>indented code)\r\n\r\n[comment]: <> (</code></pre>)\r\n[comment]: <> (<table><tr><td>)\r\n\r\n[comment]: <> (<pre>)\r\n\r\n[comment]: <> (**Hello**,)\r\n\r\n[comment]: <> (_world_.)\r\n\r\n[comment]: <> (</pre>)\r\n\r\n[comment]: <> (</td></tr></table>)\r\n",
-    "externalDocs": {
-      "description": "Find out how to create a GitHub repo for your OpenAPI definition.",
-      "url": "https://github.com/Rebilly/generator-openapi-repo"
-    }
+    "description": "# Introduction\r\nRevEl is a first of its kind, easy-to-use AI product for helping automate the mortgage origination process.\r\nIt has the ability to classify & extract data from a variety of mortgage documents. It also offers flexibility\r\nto define and manage rules in terms of “Correctness, Completeness and Consistency” across an\r\napplication. You can execute the configured rules & visualize the validation results using our interface (UI).\r\nAdditionally, it also offers an archival of cases based on the business requirement of the client\r\n\r\nIt has a microservices-based application architecture deployed on Azure Kubernetes Service (AKS).\r\nServices are organized around their capabilities and communicate with each other using well-defined\r\ninterfaces.\r\n\r\n# Definition of key terms \r\nThis section explains the key terms used in order to get a better understanding of how the\r\ndifferent APIs function.\r\n---\r\n## Company\r\n- Company is the base entity inside the product. For onboarding a new client, the first step is to create a\r\n  new company and assign relevant licences to it.\r\n\r\n- Upon successful registration, the client gets an id which is internally referred by us as the `companyId`.\r\n  This is required by most of the APIs to access the protected resources.\r\n\r\n## Product\r\n- Once a Company is created within our system, a new Product can be created which is completely client\r\n  specific.\r\n\r\n- Typically, a Product gives you the flexibility to define the structure of your mortgage application & how\r\n  the different documents are going to be logically categorised.\r\n\r\n- At the time of defining the Product, you have the flexibility to define the different Sections, Sub-Sections\r\n  & their aliases.\r\n\r\n- An alias can be used for calling the RESTful API involving operations related to different Sections. A typical\r\n  example of a product is: ***US Residential, UK Commercial*** etc.\r\n\r\n\r\n<img src=\"/images/product.png\">\r\n\r\n\r\n## Section\r\n- A Section is where pages get logically categorised after Classification. You have the ability to define\r\ndifferent Sections and Sub-Sections within a product.</br>\r\nExample :\r\n>Product: **“US commercial”** </br>\r\n>Section: **“Correspondence”** </br>\r\n>Sub-Section: **“Broker Email”**, **“Submission Checklist”** & **“Secure Loan Submission”** </br>\r\n\r\n\r\n- A Sub-Section can also be referred as a Document Category from a business user’s standpoint. </br>\r\n\r\n\r\n<img src=\"/images/section.png\">\r\n\r\n\r\n## Section Version\r\n- A Sub-Section can have multiple versions created within it, called as a Section Version. A Section Version\r\n  refers to the location where the classified pages finally reside. The purpose of having a Section Version is\r\n  to maintain different copies of the same logical documents.\r\n\r\n- However, different clients use this differently based on their requirements and there is no restriction on\r\n  the user as to how he/she wants to store the different set of documents within the different Section\r\n  Versions of a section.\r\n\r\n- After the Classification of the pages within a Section is done by the model, RevEl can either automatically\r\n  create a new Section Version and assign the relevant pages to it or it can keep the classified pages into a\r\n  temporary queue called as New Documents.</br>\r\n\r\n<i>*This behaviour is configurable using the admin configuration console based on the client’s requirement.</i>\r\n\r\n\r\n<img src=\"/images/section_version.png\">\r\n\r\n\r\n## New Document\r\n- RevEl will create a New Documents queue which allows users to manually move these pages into an\r\n  existing /new Section Version.\r\n\r\n<i>*The configuration of the Product for this functionality to work will have to be done in a way so that\r\n  RevEl doesn’t assign the pages classified by the model into a Section Version directly.\r\n</i>\r\n\r\n\r\n<img src=\"/images/new_document.png\">\r\n\r\n\r\n## Business Entity Id\r\n- A `businessEntityId` refers to the applicant’s external reference as supplied to RevEl during a document\r\n  upload from a transactional system using our RESTful API or RevEl (UI)\r\n\r\n\r\n<img src=\"/images/business_entity_id.png\">\r\n\r\n\r\n## Case Id\r\n- Case Id is the additional Id generated within RevEl corresponding to the applicant’s external reference\r\n  (Business Entity Id).\r\n\r\n- This is mostly used for an internal reference.\r\n\r\n\r\n<img src=\"/images/product.png\">\r\n\r\n\r\n\r\n[comment]: <> (<pre><code>indented code)\r\n\r\n[comment]: <> (</code></pre>)\r\n[comment]: <> (<table><tr><td>)\r\n\r\n[comment]: <> (<pre>)\r\n\r\n[comment]: <> (**Hello**,)\r\n\r\n[comment]: <> (_world_.)\r\n\r\n[comment]: <> (</pre>)\r\n\r\n[comment]: <> (</td></tr></table>)\r\n"
   },
   "tags": [
     {
       "name": "Authentication API",
       "description": "- Authentication API enables customers and end users to have a single-entry point for authentication.\r\n  Whether it is a product integration or service integration approach, the authentication endpoint is\r\n  common for both.\r\n\r\n- This API end point can be used to authenticate against RevEl and generate a JWT token which can be\r\n  used against other parts of the API which require authentication.\r\n\r\n\r\n<i>*The Authentication Token will expire after 7 days or before licence expiry date of the Company, (whichever\r\n  is less). API endpoint will need to be utilised again to generate a new token once a token is expired. </i>\r\n\r\n### Utilising the Authentication Token \r\n\r\n- Once the API has returned an Authentication Token, it needs to be set in further calls to the API in\r\n  header named \"Authorization\", prefixed with the term \"Bearer-\". \r\n\r\n```\r\ncurl -X GET --header 'Accept: application/json' --header 'Authorization: Bearer-\r\n 63d92e33d4e8 'https://client-id.digilytics.solutions/api/v1/oculyse/api/v1/{compa \r\nnyId}/e-file/{productId}/download/' \r\n <!-- (Note: Line breaks and additional request param are removed for ease of readi \r\nng only) -->\r\n\r\n```\r\n   where 63d92e33d4e8 is the token returned from the Authentication API. Token has been truncated for\r\nbrevity. \r\n"
+    },
+    {
+      "name": "Product Integration APIs (UI Based)",
+      "description": " // Adding description in this part "
+    },
+    {
+      "name": "Add document",
+      "description": ""
+    },
+    {
+      "name": "Service Integration APIs",
+      "description": "RevEl offers Classification and Extraction as a standalone service as well. This is independent of the\r\nproduct journey and can be consumed right away. For consumption of these APIs, there is no need to\r\ncreate any “Product” in RevEl in advance.\r\n\r\nThis is applicable in cases where clients require minimum configurations to consume our Classification\r\nand Extraction APIs.\r\n\r\n"
+    },
+    {
+      "name": "Classification as a service",
+      "description": "- To consume Classification as an API without using our UI, RevEl assumes that the company onboarding\r\n  process has already been done. Once the onboarding is done, the customers receive a “companyId”\r\n  provided by our account manager which can be used to upload documents for Classification and further\r\n  consume rest of the APIs.\r\n- Once the document is uploaded, our system performs a series of steps such as creating the image,\r\n  performing OCR and executing the Classification Model, finally giving the Section to which, the document\r\n  belongs to."
+    },
+    {
+      "name": "Extraction as a Service",
+      "description": ""
+    }
+  ],
+  "x-tagGroups": [
+    {
+      "name": "Authentication API",
+      "tags": [
+        "Authentication API"
+      ]
+    },
+    {
+      "name": "Product Integration APIs (UI Based)",
+      "tags": [
+        "Product Integration APIs (UI Based)",
+        "Add document"
+      ]
+    },
+    {
+      "name": "Service Integration APIs",
+      "tags": [
+        "Service Integration APIs",
+        "Classification as a service",
+        "Extraction as a Service"
+      ]
     }
   ],
   "servers": [
@@ -112,6 +151,902 @@
         ],
         "x-codegen-request-body-name": "loginForm"
       }
+    },
+    "/api/v1/{companyId}/ts/documents/classify/add": {
+      "post": {
+        "tags": [
+          "Add document"
+        ],
+        "summary": "tsClassifyDocument",
+        "operationId": "tsClassifyDocumentUsingPOST",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Id Token to access the protected resource.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "companyId",
+            "in": "path",
+            "description": "companyId",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "multiApplicantForm[0].id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "multiApplicantForm[0].referenceId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "multiApplicantForm[0].displayTitle",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "multiApplicantForm[0].tagPrecedence",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "PRIMARY",
+                "SECONDARY"
+              ]
+            }
+          },
+          {
+            "name": "businessEntityId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "productId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "sectionId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "LOCAL",
+                "AZURE",
+                "FTP"
+              ]
+            }
+          },
+          {
+            "name": "file",
+            "in": "query",
+            "schema": {
+              "type": "file"
+            }
+          },
+          {
+            "name": "fileUrl",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentModel"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/oculyse/api/v1/{companyId}/classification/document": {
+      "post": {
+        "tags": [
+          "Classification as a service"
+        ],
+        "summary": "addDocumentForClassification",
+        "operationId": "addDocumentForClassificationUsingPOST",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Id Token to access the protected resource.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "file",
+            "in": "query",
+            "description": "pdf file to be uploaded for classification. Upload types currently supported are Local, Azure",
+            "schema": {
+              "type": "file"
+            }
+          },
+          {
+            "name": "fileUrl",
+            "in": "query",
+            "description": "Public url of the file",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "this parameter defines the upload type of file source",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "LOCAL",
+                "AZURE",
+                "FTP"
+              ]
+            }
+          },
+          {
+            "name": "companyId",
+            "in": "path",
+            "description": "Unique id of the company provided by RevEl.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "classificationScore",
+            "in": "query",
+            "description": "This is optional for the client and Its default value is 0.7",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "default": 0.7
+            }
+          },
+          {
+            "name": "externalDocReferenceId",
+            "in": "query",
+            "description": "Id will be entered by the Client while uploading the document. One Id can reference multiple documents.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "externalDocGroupId",
+            "in": "query",
+            "description": "Id will be entered by the Client while uploading the document. One Id can reference multiple documents.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseDocumentModel"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/v1/{companyId}/classification/document/{documentId}": {
+      "get": {
+        "tags": [
+          "Classification as a service"
+        ],
+        "summary": "getDocumentModelOutput",
+        "operationId": "getDocumentModelOutputUsingGET",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Id Token to access the protected resource.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "companyId",
+            "in": "path",
+            "description": "Unique id of the company provided by RevEl.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "documentId",
+            "in": "path",
+            "description": "document is created while document uploaded",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericDocumentOutputModel"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/v1/{companyId}/classification/document/{documentId}/status": {
+      "get": {
+        "tags": [
+          "Classification as a service"
+        ],
+        "summary": "getDocumentStatus",
+        "operationId": "getDocumentStatusUsingGET",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Id Token to access the protected resource.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "companyId",
+            "in": "path",
+            "description": "Unique id of the company provided by RevEl.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "documentId",
+            "in": "path",
+            "description": "document id created while document upload",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericDocumentStatusModel"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/v1/{companyId}/classification/document/delete": {
+      "delete": {
+        "tags": [
+          "Classification as a service"
+        ],
+        "summary": "getDocumentDelete",
+        "operationId": "getDocumentDeleteUsingDELETE",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Id Token to access the protected resource.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "companyId",
+            "in": "path",
+            "description": "Unique Id of the company",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "documentId",
+            "in": "query",
+            "description": "unique id for deleting the document",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "referenceId",
+            "in": "query",
+            "description": "Id will be entered by the Client while deleting the document. One Id can reference multiple documents.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "groupId",
+            "in": "query",
+            "description": "Id will be entered by the Client while deleting the document. One Id can reference multiple documents.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanModel"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No Content",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/v1/{companyId}/classification/reclassify": {
+      "get": {
+        "tags": [
+          "Classification as a service"
+        ],
+        "summary": "documentReclassify",
+        "operationId": "documentReclassifyUsingGET",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Id Token to access the protected resource.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "companyId",
+            "in": "path",
+            "description": "Unique Id of the company",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "documentId",
+            "in": "query",
+            "description": "unique id for deleting the document",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "referenceId",
+            "in": "query",
+            "description": "Id will be entered by the Client while deleting the document. One Id can reference multiple documents.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "groupId",
+            "in": "query",
+            "description": "Id will be entered by the Client while deleting the document. One Id can reference multiple documents.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BaseDocumentModel"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/v1/{companyId}/classification/documents": {
+      "get": {
+        "tags": [
+          "Classification as a service"
+        ],
+        "summary": "getDocumentList",
+        "operationId": "getDocumentListUsingGET",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Id Token to access the protected resource.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "companyId",
+            "in": "path",
+            "description": "companyId",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "actionType",
+            "in": "query",
+            "description": "actionType",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "groupId",
+            "in": "query",
+            "description": "groupId",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "searchText",
+            "in": "query",
+            "description": "searchText",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Results page you want to retrieve (0..N)",
+            "schema": {
+              "type": "ref"
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Number of records per page.",
+            "schema": {
+              "type": "ref"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GenericDocumentDetailsModel"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/v1/{companyId}/extraction/document": {
+      "post": {
+        "tags": [
+          "Extraction as a Service"
+        ],
+        "summary": "addDocumentForExtraction",
+        "operationId": "addDocumentForExtractionUsingPOST",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Id Token to access the protected resource.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "file",
+            "description": "pdf file to be uploaded for classification",
+            "in": "query",
+            "schema": {
+              "type": "file"
+            }
+          },
+          {
+            "name": "fileUrl",
+            "description": "url of the file if upload type is AZURE",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "description": "this parameter defines the upload type of file source. Allowed values are (AZURE,LOCAL,FTP).",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "LOCAL",
+                "AZURE",
+                "FTP"
+              ]
+            }
+          },
+          {
+            "name": "companyId",
+            "in": "path",
+            "description": "Unique id of the company provided by RevEl",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "classificationScore",
+            "in": "query",
+            "description": "This is optional for the client and Its default value is 0.7",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "default": 0.7
+            }
+          },
+          {
+            "name": "externalDocReferenceId",
+            "in": "query",
+            "description": "Id will be entered by the Client while deleting the document. One Id can reference multiple documents.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "externalDocGroupId",
+            "in": "query",
+            "description": "Id will be entered by the Client while deleting the document. One Id can reference multiple documents.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "alias",
+            "in": "query",
+            "description": "alias",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "BST",
+                "DL"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentIdUrlModel"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/v1/{companyId}/extraction/document/{documentId}/status": {
+      "get": {
+        "tags": [
+          "Extraction as a Service"
+        ],
+        "summary": "getDocumentExtractionStatus",
+        "operationId": "getDocumentExtractionStatusUsingGET",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Id Token to access the protected resource.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "companyId",
+            "in": "path",
+            "description": "Unique Id of the company provide by RevEl",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "documentId",
+            "in": "path",
+            "description": "id of the uploaded document",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericDocumentExtractionStatusModel"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/v1/{companyId}/extraction/document/{documentId}": {
+      "get": {
+        "tags": [
+          "Extraction as a Service"
+        ],
+        "summary": "getDocumentModelOutput",
+        "operationId": "getDocumentModelOutputUsingGET_1",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Id Token to access the protected resource.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "companyId",
+            "in": "path",
+            "description": "companyId",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "documentId",
+            "in": "path",
+            "description": "documentId",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericDocumentExtractionOutputModel"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {}
+          }
+        }
+      }
     }
   },
   "components": {
@@ -183,6 +1118,482 @@
           },
           "user": {
             "$ref": "#/components/schemas/UserBaseModel"
+          }
+        }
+      },
+      "DocumentModel": {
+        "title": "DocumentModel",
+        "type": "object",
+        "properties": {
+          "addedBy": {
+            "type": "string",
+            "description": "User who has uploaded the file for classification."
+          },
+          "caseId": {
+            "type": "integer",
+            "description": "Case id under which file is uploaded for classification.",
+            "format": "int64"
+          },
+          "createdOn": {
+            "type": "string",
+            "description": "Uploaded time of the document.",
+            "format": "date-time"
+          },
+          "efileName": {
+            "type": "string"
+          },
+          "efileOwner": {
+            "type": "string"
+          },
+          "efileProductName": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer",
+            "description": "id of the uploaded file/document.",
+            "format": "int64"
+          },
+          "message": {
+            "type": "string"
+          },
+          "noOfDocumentsUploaded": {
+            "type": "integer",
+            "description": "Total no of document uploaded inside the given efile/case.",
+            "format": "int64"
+          },
+          "productId": {
+            "type": "integer",
+            "description": "Product id under which file is uploaded for classification.",
+            "format": "int64"
+          },
+          "status": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string",
+            "description": "Uploaded document url."
+          }
+        }
+      },
+      "BaseDocumentModel": {
+        "title": "BaseDocumentModel",
+        "type": "object",
+        "properties": {
+          "addedBy": {
+            "type": "string",
+            "description": "User who has uploaded the file for classification."
+          },
+          "createdOn": {
+            "type": "string",
+            "description": "Document uploading date and time",
+            "format": "date-time"
+          },
+          "efileName": {
+            "type": "string",
+            "description": "Name of the upload document"
+          },
+          "efileOwner": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer",
+            "description": "id of the uploaded file/document.",
+            "format": "int64"
+          },
+          "message": {
+            "type": "string",
+            "description": "comment at the time of uploading document"
+          },
+          "noOfDocumentsUploaded": {
+            "type": "integer",
+            "description": "Total no of document uploaded inside the given efile/case.",
+            "format": "int64"
+          },
+          "status": {
+            "type": "string",
+            "description": "Status at the time of uploading document"
+          },
+          "url": {
+            "type": "string",
+            "description": "Secure url of the uploaded document"
+          }
+        }
+      },
+      "GenericPageInfoModel": {
+        "title": "GenericPageInfoModel",
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageAlias": {
+            "description": "page type like bst, dl, etc",
+            "type": "string"
+          },
+          "pageId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageScore": {
+            "description": "page score to identify the page type",
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "GenericDocumentOutputModel": {
+        "title": "GenericDocumentOutputModel",
+        "type": "object",
+        "properties": {
+          "documentOutput": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/GenericPageInfoModel"
+              }
+            }
+          }
+        }
+      },
+      "GenericDocumentStatusModel": {
+        "title": "GenericDocumentStatusModel",
+        "type": "object",
+        "properties": {
+          "documentOutput": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/GenericPageInfoModel"
+              }
+            }
+          },
+          "documentStatus": {
+            "type": "string",
+            "enum": [
+              "UPLOADED",
+              "SPLITTING_REQUESTED",
+              "SPLITTING_COMPLETED",
+              "SPLITTING_FAILED",
+              "OCR_REQUESTED",
+              "OCR_FAILED",
+              "OCR_COMPLETED",
+              "MODEL_EXECUTION_REQUESTED",
+              "MODEL_EXECUTION_COMPLETED",
+              "MODEL_EXECUTION_FAILED",
+              "PAGE_CREATION_STARTED",
+              "PAGE_CREATION_COMPLETED",
+              "PAGE_CREATION_FAILED",
+              "PAGE_CLASSIFICATION_STARTED",
+              "PAGE_CLASSIFICATION_COMPLETED",
+              "PAGE_CLASSIFICATION_FAILED",
+              "PAGE_ADDED_TO_UNCLASSIFIED",
+              "TAG_ASSIGNMENT_STARTED",
+              "TAG_ASSIGNMENT_COMPLETED",
+              "TAG_ASSIGNMENT_FAILED",
+              "PROCESSED",
+              "FAILED"
+            ]
+          }
+        }
+      },
+      "BooleanModel": {
+        "title": "BooleanModel",
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean",
+            "description": "Success or failure identifier.",
+            "example": false
+          }
+        }
+      },
+      "GenericDocumentDetailsModel": {
+        "type": "object",
+        "properties": {
+          "dashboardMessage": {
+            "type": "string"
+          },
+          "dashboardStatus": {
+            "type": "string"
+          },
+          "fileName": {
+            "description": "filename of the uploaded document",
+            "type": "string"
+          },
+          "groupId": {
+            "type": "string"
+          },
+          "id": {
+            "description": "id of the uploaded document",
+            "type": "integer",
+            "format": "int64"
+          },
+          "size": {
+            "description": "In the output number of records uploading date and time",
+            "type": "number",
+            "format": "double"
+          },
+          "status": {
+            "description": "Status of the document",
+            "type": "string"
+          },
+          "timeOfUpload": {
+            "description": "Document uploading date and time",
+            "type": "string",
+            "format": "date-time"
+          },
+          "uploadedBy": {
+            "description": "user who uploads the document",
+            "type": "string"
+          }
+        },
+        "title": "GenericDocumentDetailsModel"
+      },
+      "DocumentIdUrlModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "id of the uploaded document",
+            "type": "integer",
+            "format": "int64"
+          },
+          "url": {
+            "description": "secure url of the uploaded document",
+            "type": "string",
+            "allowEmptyValue": false
+          }
+        },
+        "title": "DocumentIdUrlModel"
+      },
+      "DocumentAttributes": {
+        "title": "DocumentAttributes",
+        "type": "object",
+        "properties": {
+          "bank": {
+            "type": "string"
+          },
+          "endDate": {
+            "type": "string"
+          },
+          "startDate": {
+            "type": "string"
+          },
+          "transaction_order": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "FieldResultMapper": {
+        "title": "FieldResultMapper",
+        "type": "object",
+        "properties": {
+          "boundingBox": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          },
+          "confidence": {
+            "type": "number",
+            "format": "float"
+          },
+          "edited": {
+            "type": "boolean"
+          },
+          "field_type": {
+            "type": "string"
+          },
+          "format": {
+            "type": "string"
+          },
+          "formatted_value": {
+            "description": "formatted value of the extracted field",
+            "type": "string"
+          },
+          "key": {
+            "description": "name of the extracted field",
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "pageId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "type": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "value": {
+            "description": "value of the extracted field",
+            "type": "object",
+            "properties": {}
+          }
+        }
+      },
+      "PageResultMapper": {
+        "title": "PageResultMapper",
+        "type": "object",
+        "properties": {
+          "documentIndex": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FieldResultMapper"
+            }
+          },
+          "pageId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "requestIndex": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "DocumentResultMapper": {
+        "title": "DocumentResultMapper",
+        "type": "object",
+        "properties": {
+          "confidence": {
+            "description": null,
+            "type": "number",
+            "format": "float"
+          },
+          "docAttributes": {
+            "$ref": "#/components/schemas/DocumentAttributes"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "pages": {
+            "schema": null,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PageResultMapper"
+            }
+          },
+          "uuid": {
+            "type": "string"
+          }
+        }
+      },
+      "DocumentTypeResponseMapper": {
+        "title": "DocumentTypeResponseMapper",
+        "type": "object",
+        "properties": {
+          "documentTypeId": {
+            "description": "This is the Unique Id of the documentType",
+            "type": "integer",
+            "format": "int64"
+          },
+          "documents": {
+            "description": "list of documents extracted",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DocumentResultMapper"
+            }
+          },
+          "type": {
+            "description": "documentType states the name of the document eg. Passport, DL etc",
+            "type": "string"
+          }
+        }
+      },
+      "PageIndexMapper": {
+        "title": "PageIndexMapper",
+        "type": "object",
+        "properties": {
+          "pageId": {
+            "description": "unique id of the page",
+            "type": "integer",
+            "format": "int64"
+          },
+          "requestIndex": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "ExtractionResultMapper": {
+        "title": "ExtractionResultMapper",
+        "type": "object",
+        "properties": {
+          "documentTypes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DocumentTypeResponseMapper"
+            }
+          },
+          "unsortedPages": {
+            "description": "This field represents the set of pages which are not identified by the model",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PageIndexMapper"
+            }
+          },
+          "version": {
+            "type": "string"
+          }
+        }
+      },
+      "BankStatementExtractedDataResponseMapper": {
+        "title": "BankStatementExtractedDataResponseMapper",
+        "type": "object",
+        "properties": {
+          "extractionResults": {
+            "$ref": "#/components/schemas/ExtractionResultMapper"
+          },
+          "success": {
+            "type": "string"
+          }
+        }
+      },
+      "GenericDocumentExtractionStatusModel": {
+        "title": "GenericDocumentExtractionStatusModel",
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/BankStatementExtractedDataResponseMapper"
+          },
+          "extractionStatusType": {
+            "description": "contains the status message of the extraction request",
+            "type": "string",
+            "enum": [
+              "REQUESTED",
+              "IN_PROGRESS",
+              "SUCCESS",
+              "FAILED"
+            ]
+          }
+        }
+      },
+      "GenericDocumentExtractionOutputModel": {
+        "title": "GenericDocumentExtractionOutputModel",
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/BankStatementExtractedDataResponseMapper"
           }
         }
       }

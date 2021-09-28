@@ -30,6 +30,10 @@
       "description": ""
     },
     {
+      "name": "Archive Case",
+      "description": "- All the documents related to a case can be downloaded (pdfs) for the entire case altogether based on\r\n  the product structure. User has an option to download an entire case, a particular Section, Section\r\n  Version or New Documents present in the queue.\r\n- User can also delete an existing case based on the relevant use case. Typically, cases are archived once\r\n  they are funded. "
+    },
+    {
       "name": "Service Integration APIs",
       "description": "RevEl offers Classification and Extraction as a standalone service as well. This is independent of the\r\nproduct journey and can be consumed right away. For consumption of these APIs, there is no need to\r\ncreate any “Product” in RevEl in advance.\r\n\r\nThis is applicable in cases where clients require minimum configurations to consume our Classification\r\nand Extraction APIs.\r\n\r\n"
     },
@@ -53,7 +57,8 @@
       "name": "Product Integration APIs (UI Based)",
       "tags": [
         "Product Integration APIs (UI Based)",
-        "Add document"
+        "Add document",
+        "Archive Case"
       ]
     },
     {
@@ -398,6 +403,177 @@
           },
           "404": {
             "description": "Not Found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/oculyse/api/v1/{companyId}/e-file/{productId}/download/": {
+      "get": {
+        "tags": [
+          "Archive Case"
+        ],
+        "description": "To get the download link for an entire case including the Section, Section Version or New Documents. (Getting all the links or files related to a particular case for archiving.)",
+        "summary": "download",
+        "operationId": "archiveACaseUsingGET",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Id Token to access the protected resource.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "companyId",
+            "in": "path",
+            "description": "companyId",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "productId",
+            "in": "path",
+            "description": "productId",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "type",
+            "schema": {
+              "type": "string",
+              "default": "LINK",
+              "enum": [
+                "LINK"
+              ]
+            }
+          },
+          {
+            "name": "businessEntityId",
+            "in": "query",
+            "description": "businessEntityId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Boolean status.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessCaseArchiveModel"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Bad credentials",
+            "content": {}
+          },
+          "403": {
+            "description": "Access forbidden.",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found.",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/oculyse/api/v1/{companyId}/e-file/{productId}": {
+      "delete": {
+        "tags": [
+          "Archive Case"
+        ],
+        "description": "Deletes all the data permanently if it is hard deleted. It may take upto 6hrs to delete data completely from the database in case of hard delete.",
+        "summary": "delete a case.",
+        "operationId": "deleteCaseByProductIdCaseUsingDELETE",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Id Token to access the protected resource.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "companyId",
+            "in": "path",
+            "description": "companyId",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "defines the type of delete operation you want to perform. Hard delete: Hard delete means everything will be deleted permanently including static files related to the application. Soft Delete: Only flag is set to deleted. All the data remains inside the system. ",
+            "schema": {
+              "type": "string",
+              "default": "SOFT",
+              "enum": [
+                "SOFT",
+                "HARD"
+              ]
+            }
+          },
+          {
+            "name": "productId",
+            "in": "path",
+            "description": "productId",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "businessEntityId",
+            "in": "query",
+            "description": "businessEntityId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanModel"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No Content",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "403": {
+            "description": "Forbidden",
             "content": {}
           }
         }
@@ -1219,6 +1395,82 @@
           }
         }
       },
+      "ArchiveSectionLinkModel": {
+        "title": "ArchiveSectionLinkModel",
+        "type": "object",
+        "properties": {
+          "alias": {
+            "type": "string"
+          },
+          "extractionEnabled": {
+            "type": "boolean"
+          },
+          "hasPages": {
+            "type": "boolean",
+            "description": "true if this section can have pages classified by the system/user.",
+            "example": false
+          },
+          "id": {
+            "type": "integer",
+            "description": "Id of the section.",
+            "format": "int64"
+          },
+          "link": {
+            "type": "string",
+            "description": "Link for downloading pdf of the section."
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the section."
+          },
+          "subSections": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ArchiveSectionLinkModel"
+            }
+          }
+        }
+      },
+      "BusinessCaseArchiveModel": {
+        "title": "BusinessCaseArchiveModel",
+        "type": "object",
+        "properties": {
+          "businessEntityId": {
+            "type": "string",
+            "description": "The business entity id provided at the time of creation of case."
+          },
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "link": {
+            "type": "string",
+            "description": "Url for downloading the pdf version of the case."
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the case given at the time of creation of the case."
+          },
+          "sections": {
+            "type": "array",
+            "description": "All the sections for the given case.",
+            "items": {
+              "$ref": "#/components/schemas/ArchiveSectionLinkModel"
+            }
+          }
+        }
+      },
+      "BooleanModel": {
+        "title": "BooleanModel",
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean",
+            "description": "Success or failure identifier.",
+            "example": false
+          }
+        }
+      },
       "GenericPageInfoModel": {
         "title": "GenericPageInfoModel",
         "type": "object",
@@ -1300,17 +1552,6 @@
               "PROCESSED",
               "FAILED"
             ]
-          }
-        }
-      },
-      "BooleanModel": {
-        "title": "BooleanModel",
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "boolean",
-            "description": "Success or failure identifier.",
-            "example": false
           }
         }
       },

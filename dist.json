@@ -18,7 +18,7 @@
   },
   "externalDocs": {
     "description": "Swagger documentation.",
-    "url": "https://api-dev.digilytics.solutions/swagger-ui.html"
+    "url": "/swagger"
   },
   "tags": [
     {

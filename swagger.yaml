@@ -1,0 +1,280 @@
+swagger: '2.0'
+info:
+  description: "RevEl works on below terminologoies \n
+  **companyId** - In a multi-tenant environemnt this is the client Id supplied. \n
+  **productId** - For a client there can mutiple file structures known as products for Digilytics, This will be configured on Digilytics portal.\n
+  **sectionId** - pages are divided into sections and subsections  (called as documents).  \n
+  **businessEntityId** - Client reference number for a case. \n
+  **caseId** - Digilytics reference number for a case. \n\n
+  We will share the testing credentials if needed.
+  "
+  version: 0.0.1
+  title: RevEl API Documentation.
+  contact:
+    email: "contact@digilytics.ai"
+  license:
+    name: "Digilytics©"
+#
+host: 'client-id.digilytics.solutions'
+basePath: /
+tags:
+  - name: auth
+    description: Authentication related APIs.
+  - name: archive-case
+    description: Getting all the links or files related to a particular case for archiving.
+schemes:
+- "https"
+paths:
+  /api/v1/auth/login:
+    post:
+      tags:
+        - auth
+      summary: login
+      operationId: loginUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - name: Authorization
+          in: header
+          description: Id Token to access the protected resource.
+          required: false
+          type: string
+        - in: body
+          name: loginForm
+          description: loginForm
+          required: true
+          schema:
+            $ref: '#/definitions/LoginForm'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/UserLoginModel'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+
+      
+  '/api/v1/{companyId}/e-file/{productId}/download/':
+    get:
+      tags:
+        - archive-case
+      summary: Archive a case.
+      operationId: getArchiveLinkForPDFDownloadByCaseIdForCaseAndSectionsUsingGET
+      produces:
+        - '*/*'
+      parameters:
+        - name: Authorization
+          in: header
+          description: Id Token to access the protected resource.
+          required: false
+          type: string
+        - name: companyId
+          in: path
+          description: companyId
+          required: true
+          type: integer
+          format: int64
+        - name: productId
+          in: path
+          description: productId
+          required: true
+          type: integer
+          format: int64
+        - name: businessEntityId
+          in: query
+          description: Business Entity id of the case.
+          required: true
+          type: string  
+        - name: type
+          in: query
+          description: type
+          required: false
+          type: string
+          default: LINK
+          enum:
+            - LINK
+      responses:
+        '200':
+          description: Boolean status.
+          schema:
+            $ref: '#/definitions/BusinessCaseArchiveModel'
+        '401':
+          description: Bad credentials
+        '403':
+          description: Access forbidden.
+        '404':
+          description: Not found.
+          
+  '/api/v1/{companyId}/e-file/{productId}':
+    delete:
+      tags:
+        - archive-case
+      summary: Delete a case. Deletes all the data permanently if it is hard deleted. It may take upto 6 hrs to delete data completely from the database in case of hard delete.
+      operationId: deleteCaseUsingDELETE
+      produces:
+        - '*/*'
+      parameters:
+        - name: Authorization
+          in: header
+          description: Id Token to access the protected resource.
+          required: false
+          type: string
+        - name: companyId
+          in: path
+          description: companyId
+          required: true
+          type: integer
+          format: int64
+        - name: productId
+          in: path
+          description: caseId
+          required: true
+          type: integer
+          format: int64
+        - name: businessEntityId
+          in: query
+          description: Business Entity id of the case.
+          required: true
+          type: string
+        - name: type
+          in: query
+          description: type
+          required: false
+          type: string
+          default: SOFT
+          enum:
+            - SOFT
+            - HARD
+      responses:
+        '200':
+          description: Boolean status.
+          schema:
+            $ref: '#/definitions/BooleanModel'
+        '204':
+          description: No Content
+        '401':
+          description: Bad credentials
+        '403':
+          description: Access forbidden.
+        '404':
+          description: Case not found. 
+  
+definitions:
+ LoginForm:
+    type: object
+    properties:
+      email:
+        type: string
+        description: Email of the user.
+      password:
+        type: string
+        description: Password of the user.
+    title: LoginForm
+
+ BooleanModel:
+    type: object
+    properties:
+      status:
+        type: boolean
+        example: false
+        description: Success or failure identifier.
+    title: BooleanModel
+
+ ArchiveSectionLinkModel:
+    type: object
+    properties:
+      alias:
+        type: string
+        description: Alias associated with the section.
+      hasPages:
+        type: boolean
+        example: false
+        description: true if this section can have pages classified by the system/user.
+      id:
+        type: integer
+        format: int64
+        description: Id of the section.
+      link:
+        type: string
+        description: Link for downloading pdf of the section.
+      name:
+        type: string
+        description: Name of the section.
+      subSections:
+        type: array
+        description: All the subsections/documents of a case.
+        items:
+          $ref: '#/definitions/ArchiveSectionLinkModel'  
+    title: ArchiveSectionLinkModel
+
+
+ BusinessCaseArchiveModel:
+    type: object
+    properties:
+      businessEntityId:
+        type: string
+        description: The business entity id provided at the time of creation of case.
+      id:
+        type: integer
+        format: int64
+        description: Entity identifier. 
+      link:
+        type: string
+        description: Url for downloading the pdf version of the case.
+      name:
+        type: string
+        description: The name of the case given at the time of creation of the case.
+      sections:
+        type: array
+        description: All the subsections/documents of a case.
+        items:
+          $ref: '#/definitions/ArchiveSectionLinkModel'
+    title: BusinessCaseArchiveModel
+
+
+  
+ UserLoginModel:
+    type: object
+    properties:
+      idToken:
+        type: string
+      loginType:
+        type: string
+        enum:
+          - WL
+          - CR
+          - SC
+      user:
+        $ref: '#/definitions/UserBaseModel'
+    title: UserLoginModel 
+
+
+ UserBaseModel:
+    type: object
+    properties:
+      companyUserId:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+        format: int64
+      name:
+        type: string
+      roles:
+        type: array
+        items:
+          type: string
+      rolesDisplayName:
+        type: array
+        items:
+          type: string
+    title: UserBaseModel

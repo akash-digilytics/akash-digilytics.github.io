@@ -153,7 +153,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       });
     } // Add try button
 
-    $(".http-verb").before("\n    <button onclick="window.open('http://www.example.com') class=\"tryBtn\">".concat(cfg.tryText, "</button>\n  "));
+    $(".http-verb").before("\n    <button class=\"tryBtn\">".concat(cfg.tryText, "</button>\n  "));
     $(".tryBtn").click(function (event) {
       event.stopPropagation();
       var $tryBtn = $(this);

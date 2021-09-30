@@ -77,37 +77,37 @@
 //     var redocVersion = ( // Read the redoc version number from the label
 //     ($("script[src*=\"/redoc@\"]").attr("src") || "").match(/redoc@(.+?)\//) || [])[1];
 
-    var cfg = _objectSpread(_objectSpread({
-      openApi: testOpenApi,
-      onlySwagger: false,
-      // Only render swagger, in some cases redoc will render openApi error
-      tryText: "try",
-      // try button text
-      trySwaggerInApi: true,
-      // Is the swagger debugging window displayed under the api? true: yes, false: displayed after the request, when the request is relatively large, you may not see the debugging window
-      redocVersion: redocVersion,
-      authBtnPosSelector: "h1:eq(0)",
-      authBtnText: "AUTHORIZE"
-    }, userCfg), {}, {
-      swaggerOptions: _objectSpread({
-        url: userCfg.openApi || testOpenApi,
-        dom_id: "#swagger-ui",
-        onComplete: function onComplete() {
-          trySwagger(cfg);
-        },
-        tryItOutEnabled: true
-      }, userCfg.swaggerOptions),
-      redocOptions: [redoc_openApi || userCfg.openApi || testOpenApi, redoc_options || {
-        enableConsole: true
-      }, redoc_dom || document.getElementById('redoc-container'), function () {
-        redoc_callBack && redoc_callBack();
-        initSwagger(cfg.swaggerOptions);
-        $(".swaggerBox").addClass("hide");
-      }]
-    });
+//     var cfg = _objectSpread(_objectSpread({
+//       openApi: testOpenApi,
+//       onlySwagger: false,
+//       // Only render swagger, in some cases redoc will render openApi error
+//       tryText: "try",
+//       // try button text
+//       trySwaggerInApi: true,
+//       // Is the swagger debugging window displayed under the api? true: yes, false: displayed after the request, when the request is relatively large, you may not see the debugging window
+//       redocVersion: redocVersion,
+//       authBtnPosSelector: "h1:eq(0)",
+//       authBtnText: "AUTHORIZE"
+//     }, userCfg), {}, {
+//       swaggerOptions: _objectSpread({
+//         url: userCfg.openApi || testOpenApi,
+//         dom_id: "#swagger-ui",
+//         onComplete: function onComplete() {
+//           trySwagger(cfg);
+//         },
+//         tryItOutEnabled: true
+//       }, userCfg.swaggerOptions),
+//       redocOptions: [redoc_openApi || userCfg.openApi || testOpenApi, redoc_options || {
+//         enableConsole: true
+//       }, redoc_dom || document.getElementById('redoc-container'), function () {
+//         redoc_callBack && redoc_callBack();
+//         initSwagger(cfg.swaggerOptions);
+//         $(".swaggerBox").addClass("hide");
+//       }]
+//     });
 
-    return cfg;
-  }
+//     return cfg;
+//   }
 
 //   function initCss() {
 //     // reset swagger-ui css
@@ -153,7 +153,7 @@
 //       });
 //     } // Add try button
 
-    $(".http-verb").before("\n    <button class=\"tryBtn\">".concat(cfg.tryText, "</button>\n  "));
+//     $(".http-verb").before("\n    <button class=\"tryBtn\">".concat(cfg.tryText, "</button>\n  "));
 //     $(".tryBtn").click(function (event) {
 //       event.stopPropagation();
 //       var $tryBtn = $(this);

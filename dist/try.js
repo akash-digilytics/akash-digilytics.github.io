@@ -1,81 +1,81 @@
-"use strict";
+// "use strict";
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+// function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+// function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+// function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+// function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+// function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+// function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+// function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+// function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+// function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+// function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+// function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
 
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+// function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+// function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-;
+// ;
 
-(function (window, undefined) {
-  window.initTry = window.initTry || initTry;
+// (function (window, undefined) {
+//   window.initTry = window.initTry || initTry;
 
-  function initTry(userCfg) {
-    loadScript("https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js").then(function () {
-      return loadScript("https://cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js");
-    }).then(function () {
-      return loadScript("https://cdn.jsdelivr.net/npm/swagger-ui-dist@3.48.0/swagger-ui-bundle.js");
-    }).then(function () {
-      return loadScript("https://cdn.jsdelivr.net/npm/compare-versions@3.6.0/index.min.js");
-    }).then(function () {
-      var cfg = cfgHandle(userCfg);
-      window.cfg = cfg;
+//   function initTry(userCfg) {
+//     loadScript("https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js").then(function () {
+//       return loadScript("https://cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js");
+//     }).then(function () {
+//       return loadScript("https://cdn.jsdelivr.net/npm/swagger-ui-dist@3.48.0/swagger-ui-bundle.js");
+//     }).then(function () {
+//       return loadScript("https://cdn.jsdelivr.net/npm/compare-versions@3.6.0/index.min.js");
+//     }).then(function () {
+//       var cfg = cfgHandle(userCfg);
+//       window.cfg = cfg;
 
-      if (cfg.onlySwagger) {
-        initSwagger(cfg.swaggerOptions);
-        $(".swaggerBox").addClass("onlySwagger");
-      } else {
-        var _Redoc;
+//       if (cfg.onlySwagger) {
+//         initSwagger(cfg.swaggerOptions);
+//         $(".swaggerBox").addClass("onlySwagger");
+//       } else {
+//         var _Redoc;
 
-        (_Redoc = Redoc).init.apply(_Redoc, _toConsumableArray(cfg.redocOptions));
-      }
-    })["catch"](function () {
-      console.error('Something went wrong.');
-    });
-  }
+//         (_Redoc = Redoc).init.apply(_Redoc, _toConsumableArray(cfg.redocOptions));
+//       }
+//     })["catch"](function () {
+//       console.error('Something went wrong.');
+//     });
+//   }
 
-  function cfgHandle(userCfg) {
-    if (typeof userCfg === "string") {
-      userCfg = {
-        openApi: userCfg
-      };
-    }
+//   function cfgHandle(userCfg) {
+//     if (typeof userCfg === "string") {
+//       userCfg = {
+//         openApi: userCfg
+//       };
+//     }
 
-    var _userCfg = userCfg,
-        redocOptions = _userCfg.redocOptions;
-    var testOpenApi = "https://httpbin.org/spec.json"; // `https://petstore.swagger.io/v2/swagger.json`
+//     var _userCfg = userCfg,
+//         redocOptions = _userCfg.redocOptions;
+//     var testOpenApi = "https://httpbin.org/spec.json"; // `https://petstore.swagger.io/v2/swagger.json`
 
-    var redocOptionsRes = dataType(redocOptions, "object") ? [undefined, redocOptions] : redocOptions || [];
+//     var redocOptionsRes = dataType(redocOptions, "object") ? [undefined, redocOptions] : redocOptions || [];
 
-    var _redocOptionsRes = _slicedToArray(redocOptionsRes, 4),
-        redoc_openApi = _redocOptionsRes[0],
-        redoc_options = _redocOptionsRes[1],
-        redoc_dom = _redocOptionsRes[2],
-        redoc_callBack = _redocOptionsRes[3];
+//     var _redocOptionsRes = _slicedToArray(redocOptionsRes, 4),
+//         redoc_openApi = _redocOptionsRes[0],
+//         redoc_options = _redocOptionsRes[1],
+//         redoc_dom = _redocOptionsRes[2],
+//         redoc_callBack = _redocOptionsRes[3];
 
-    var redocVersion = ( // Read the redoc version number from the label
-    ($("script[src*=\"/redoc@\"]").attr("src") || "").match(/redoc@(.+?)\//) || [])[1];
+//     var redocVersion = ( // Read the redoc version number from the label
+//     ($("script[src*=\"/redoc@\"]").attr("src") || "").match(/redoc@(.+?)\//) || [])[1];
 
     var cfg = _objectSpread(_objectSpread({
       openApi: testOpenApi,

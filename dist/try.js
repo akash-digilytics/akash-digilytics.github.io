@@ -28,311 +28,311 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 ;
 
-// (function (window, undefined) {
-//   window.initTry = window.initTry || initTry;
+(function (window, undefined) {
+  window.initTry = window.initTry || initTry;
 
-//   function initTry(userCfg) {
-//     loadScript("https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js").then(function () {
-//       return loadScript("https://cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js");
-//     }).then(function () {
-//       return loadScript("https://cdn.jsdelivr.net/npm/swagger-ui-dist@3.48.0/swagger-ui-bundle.js");
-//     }).then(function () {
-//       return loadScript("https://cdn.jsdelivr.net/npm/compare-versions@3.6.0/index.min.js");
-//     }).then(function () {
-//       var cfg = cfgHandle(userCfg);
-//       window.cfg = cfg;
+  function initTry(userCfg) {
+    loadScript("https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js").then(function () {
+      return loadScript("https://cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js");
+    }).then(function () {
+      return loadScript("https://cdn.jsdelivr.net/npm/swagger-ui-dist@3.48.0/swagger-ui-bundle.js");
+    }).then(function () {
+      return loadScript("https://cdn.jsdelivr.net/npm/compare-versions@3.6.0/index.min.js");
+    }).then(function () {
+      var cfg = cfgHandle(userCfg);
+      window.cfg = cfg;
 
-//       if (cfg.onlySwagger) {
-//         initSwagger(cfg.swaggerOptions);
-//         $(".swaggerBox").addClass("onlySwagger");
-//       } else {
-//         var _Redoc;
+      if (cfg.onlySwagger) {
+        initSwagger(cfg.swaggerOptions);
+        $(".swaggerBox").addClass("onlySwagger");
+      } else {
+        var _Redoc;
 
-//         (_Redoc = Redoc).init.apply(_Redoc, _toConsumableArray(cfg.redocOptions));
-//       }
-//     })["catch"](function () {
-//       console.error('Something went wrong.');
-//     });
-//   }
+        (_Redoc = Redoc).init.apply(_Redoc, _toConsumableArray(cfg.redocOptions));
+      }
+    })["catch"](function () {
+      console.error('Something went wrong.');
+    });
+  }
 
-//   function cfgHandle(userCfg) {
-//     if (typeof userCfg === "string") {
-//       userCfg = {
-//         openApi: userCfg
-//       };
-//     }
+  function cfgHandle(userCfg) {
+    if (typeof userCfg === "string") {
+      userCfg = {
+        openApi: userCfg
+      };
+    }
 
-//     var _userCfg = userCfg,
-//         redocOptions = _userCfg.redocOptions;
-//     var testOpenApi = "https://httpbin.org/spec.json"; // `https://petstore.swagger.io/v2/swagger.json`
+    var _userCfg = userCfg,
+        redocOptions = _userCfg.redocOptions;
+    var testOpenApi = "https://httpbin.org/spec.json"; // `https://petstore.swagger.io/v2/swagger.json`
 
-//     var redocOptionsRes = dataType(redocOptions, "object") ? [undefined, redocOptions] : redocOptions || [];
+    var redocOptionsRes = dataType(redocOptions, "object") ? [undefined, redocOptions] : redocOptions || [];
 
-//     var _redocOptionsRes = _slicedToArray(redocOptionsRes, 4),
-//         redoc_openApi = _redocOptionsRes[0],
-//         redoc_options = _redocOptionsRes[1],
-//         redoc_dom = _redocOptionsRes[2],
-//         redoc_callBack = _redocOptionsRes[3];
+    var _redocOptionsRes = _slicedToArray(redocOptionsRes, 4),
+        redoc_openApi = _redocOptionsRes[0],
+        redoc_options = _redocOptionsRes[1],
+        redoc_dom = _redocOptionsRes[2],
+        redoc_callBack = _redocOptionsRes[3];
 
-//     var redocVersion = ( // Read the redoc version number from the label
-//     ($("script[src*=\"/redoc@\"]").attr("src") || "").match(/redoc@(.+?)\//) || [])[1];
+    var redocVersion = ( // Read the redoc version number from the label
+    ($("script[src*=\"/redoc@\"]").attr("src") || "").match(/redoc@(.+?)\//) || [])[1];
 
-//     var cfg = _objectSpread(_objectSpread({
-//       openApi: testOpenApi,
-//       onlySwagger: false,
-//       // Only render swagger, in some cases redoc will render openApi error
-//       tryText: "try",
-//       // try button text
-//       trySwaggerInApi: true,
-//       // Is the swagger debugging window displayed under the api? true: yes, false: displayed after the request, when the request is relatively large, you may not see the debugging window
-//       redocVersion: redocVersion,
-//       authBtnPosSelector: "h1:eq(0)",
-//       authBtnText: "AUTHORIZE"
-//     }, userCfg), {}, {
-//       swaggerOptions: _objectSpread({
-//         url: userCfg.openApi || testOpenApi,
-//         dom_id: "#swagger-ui",
-//         onComplete: function onComplete() {
-//           trySwagger(cfg);
-//         },
-//         tryItOutEnabled: true
-//       }, userCfg.swaggerOptions),
-//       redocOptions: [redoc_openApi || userCfg.openApi || testOpenApi, redoc_options || {
-//         enableConsole: true
-//       }, redoc_dom || document.getElementById('redoc-container'), function () {
-//         redoc_callBack && redoc_callBack();
-//         initSwagger(cfg.swaggerOptions);
-//         $(".swaggerBox").addClass("hide");
-//       }]
-//     });
+    var cfg = _objectSpread(_objectSpread({
+      openApi: testOpenApi,
+      onlySwagger: false,
+      // Only render swagger, in some cases redoc will render openApi error
+      tryText: "try",
+      // try button text
+      trySwaggerInApi: true,
+      // Is the swagger debugging window displayed under the api? true: yes, false: displayed after the request, when the request is relatively large, you may not see the debugging window
+      redocVersion: redocVersion,
+      authBtnPosSelector: "h1:eq(0)",
+      authBtnText: "AUTHORIZE"
+    }, userCfg), {}, {
+      swaggerOptions: _objectSpread({
+        url: userCfg.openApi || testOpenApi,
+        dom_id: "#swagger-ui",
+        onComplete: function onComplete() {
+          trySwagger(cfg);
+        },
+        tryItOutEnabled: true
+      }, userCfg.swaggerOptions),
+      redocOptions: [redoc_openApi || userCfg.openApi || testOpenApi, redoc_options || {
+        enableConsole: true
+      }, redoc_dom || document.getElementById('redoc-container'), function () {
+        redoc_callBack && redoc_callBack();
+        initSwagger(cfg.swaggerOptions);
+        $(".swaggerBox").addClass("hide");
+      }]
+    });
 
-//     return cfg;
-//   }
+    return cfg;
+  }
 
-//   function initCss() {
-//     // reset swagger-ui css
-//     $('head').append("\n    <style>\n      /* Set the position of swaggerBox with body as the relative element */\n      body {\n        position: relative;\n      }\n      @media print, screen and (max-width: 85rem) {\n        .eIeJha,\n        .dtUibw {\n          padding: 4px;\n        }\n      }\n\n      .swaggerBox.hide {\n        visibility: hidden;\n        cursor: none;\n        width: 0;\n        height: 0;\n      }\n      .swaggerBox.show {\n        visibility: visible;\n        cursor: initial;\n      }\n\n      /* Reset the style of swagger-ui */\n      .swaggerBox .swagger-ui .wrapper {\n        padding: 0;\n      }\n\n      /* Disable api bar to avoid problems */\n      .swaggerBox:not(.onlySwagger) .swagger-ui .opblock .opblock-summary {\n        cursor: not-allowed;\n        pointer-events: none;\n      }\n\n      /* Disable the api bar, but exclude the authorization button */\n      .swaggerBox .swagger-ui .authorization__btn {\n        cursor: initial;\n        pointer-events: initial;\n      }\n\n      .swaggerBox {\n        border-radius: 4px;\n        background-color: #fff;\n        width: 100%;\n        height: 100vh;\n        position: absolute;\n        top: 0;\n        left: 0;\n        z-index: 1;\n      }\n      .swaggerBox:not(.onlySwagger) {\n        overflow: hidden;\n      }\n\n      /* Hide some disturbing elements */\n      .swaggerBox:not(.onlySwagger) .swagger-ui .opblock-summary {\n        visibility: hidden;\n        padding: 0;\n      }\n      .swaggerBox:not(.onlySwagger) .btn.cancel,\n      .swaggerBox:not(.onlySwagger) .try-out,\n      .swaggerBox:not(.onlySwagger) .responses-inner>div>h4,\n      .swaggerBox:not(.onlySwagger) :not(.live-responses-table).responses-table,\n      .swaggerBox:not(.onlySwagger) .opblock-body > .opblock-description-wrapper,\n      .swaggerBox:not(.onlySwagger) .swagger-ui .opblock-summary * {\n        display: none;\n      }\n\n      .swaggerBox .tryBtn {\n        margin-right: 10px;\n        background-color: #fff;\n      }\n    </style>\n  ");
-//   }
+  function initCss() {
+    // reset swagger-ui css
+    $('head').append("\n    <style>\n      /* Set the position of swaggerBox with body as the relative element */\n      body {\n        position: relative;\n      }\n      @media print, screen and (max-width: 85rem) {\n        .eIeJha,\n        .dtUibw {\n          padding: 4px;\n        }\n      }\n\n      .swaggerBox.hide {\n        visibility: hidden;\n        cursor: none;\n        width: 0;\n        height: 0;\n      }\n      .swaggerBox.show {\n        visibility: visible;\n        cursor: initial;\n      }\n\n      /* Reset the style of swagger-ui */\n      .swaggerBox .swagger-ui .wrapper {\n        padding: 0;\n      }\n\n      /* Disable api bar to avoid problems */\n      .swaggerBox:not(.onlySwagger) .swagger-ui .opblock .opblock-summary {\n        cursor: not-allowed;\n        pointer-events: none;\n      }\n\n      /* Disable the api bar, but exclude the authorization button */\n      .swaggerBox .swagger-ui .authorization__btn {\n        cursor: initial;\n        pointer-events: initial;\n      }\n\n      .swaggerBox {\n        border-radius: 4px;\n        background-color: #fff;\n        width: 100%;\n        height: 100vh;\n        position: absolute;\n        top: 0;\n        left: 0;\n        z-index: 1;\n      }\n      .swaggerBox:not(.onlySwagger) {\n        overflow: hidden;\n      }\n\n      /* Hide some disturbing elements */\n      .swaggerBox:not(.onlySwagger) .swagger-ui .opblock-summary {\n        visibility: hidden;\n        padding: 0;\n      }\n      .swaggerBox:not(.onlySwagger) .btn.cancel,\n      .swaggerBox:not(.onlySwagger) .try-out,\n      .swaggerBox:not(.onlySwagger) .responses-inner>div>h4,\n      .swaggerBox:not(.onlySwagger) :not(.live-responses-table).responses-table,\n      .swaggerBox:not(.onlySwagger) .opblock-body > .opblock-description-wrapper,\n      .swaggerBox:not(.onlySwagger) .swagger-ui .opblock-summary * {\n        display: none;\n      }\n\n      .swaggerBox .tryBtn {\n        margin-right: 10px;\n        background-color: #fff;\n      }\n    </style>\n  ");
+  }
 
-//   function initSwagger(swaggerOptions) {
-//     // dom
-//     $('body').append("\n    <div class=\"swaggerBox\">\n      <div id=\"swagger-ui\"></div>\n    </div>\n  "); // swagger-ui.css
+  function initSwagger(swaggerOptions) {
+    // dom
+    $('body').append("\n    <div class=\"swaggerBox\">\n      <div id=\"swagger-ui\"></div>\n    </div>\n  "); // swagger-ui.css
 
-//     $('head').append("<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/swagger-ui-dist@3.25.1/swagger-ui.css\" />");
-//     SwaggerUIBundle(swaggerOptions);
-//   }
+    $('head').append("<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/swagger-ui-dist@3.25.1/swagger-ui.css\" />");
+    SwaggerUIBundle(swaggerOptions);
+  }
 
-//   function trySwagger(cfg) {
-//     initCss();
-//     {
-//       // Add a button to set auth to redoc
-//       $(cfg.authBtnPosSelector).after($("\n      <div class=\"".concat($("a[href*=\"swagger.json\"]:eq(0)").attr("class"), " btn setAuth\">") + cfg.authBtnText + "</div>\n    "));
-//       $(".btn.setAuth").click(function () {
-//         // The pop-up window in swaggerBox can be displayed, but the swaggerBox itself is hidden
-//         var $swaggerBox = $(".swaggerBox").removeClass("hide").css({
-//           visibility: "hidden",
-//           height: "",
-//           left: "",
-//           top: "",
-//           width: ""
-//         });
-//         $(".swagger-ui .auth-wrapper .authorize.unlocked").click(); // Open the pop-up window for setting auth
+  function trySwagger(cfg) {
+    initCss();
+    {
+      // Add a button to set auth to redoc
+      $(cfg.authBtnPosSelector).after($("\n      <div class=\"".concat($("a[href*=\"swagger.json\"]:eq(0)").attr("class"), " btn setAuth\">") + cfg.authBtnText + "</div>\n    "));
+      $(".btn.setAuth").click(function () {
+        // The pop-up window in swaggerBox can be displayed, but the swaggerBox itself is hidden
+        var $swaggerBox = $(".swaggerBox").removeClass("hide").css({
+          visibility: "hidden",
+          height: "",
+          left: "",
+          top: "",
+          width: ""
+        });
+        $(".swagger-ui .auth-wrapper .authorize.unlocked").click(); // Open the pop-up window for setting auth
 
-//         var $modal = $(".swagger-ui .dialog-ux .modal-ux");
-//         $modal.css({
-//           visibility: "visible"
-//         });
-//         $(".swagger-ui .auth-btn-wrapper .btn-done, .swagger-ui .dialog-ux .modal-ux-header .close-modal").click(function () {
-//           $swaggerBox.addClass("hide").css({
-//             visibility: ""
-//           });
-//           $modal.css({
-//             visibility: ""
-//           });
-//         });
-//       });
+        var $modal = $(".swagger-ui .dialog-ux .modal-ux");
+        $modal.css({
+          visibility: "visible"
+        });
+        $(".swagger-ui .auth-btn-wrapper .btn-done, .swagger-ui .dialog-ux .modal-ux-header .close-modal").click(function () {
+          $swaggerBox.addClass("hide").css({
+            visibility: ""
+          });
+          $modal.css({
+            visibility: ""
+          });
+        });
+      });
     } // Add try button
 
     $(".http-verb").before("\n    <button onclick="window.open('http://www.example.com') class=\"tryBtn\">".concat(cfg.tryText, "</button>\n  "));
-//     $(".tryBtn").click(function (event) {
-//       event.stopPropagation();
-//       var $tryBtn = $(this);
-//       $(".swaggerShadow").remove(); // First clear all temporary elements
+    $(".tryBtn").click(function (event) {
+      event.stopPropagation();
+      var $tryBtn = $(this);
+      $(".swaggerShadow").remove(); // First clear all temporary elements
 
-//       var $operation = $tryBtn.parents("[data-section-id]"); // Get the outermost api box
+      var $operation = $tryBtn.parents("[data-section-id]"); // Get the outermost api box
 
-//       if ($operation.hasClass("try") === true) {
-//         // If the current API is already in the try state, uninstall and exit the function
-//         $(".swaggerBox").addClass("hide").removeClass("show");
-//         $operation.removeClass("try");
-//         return false;
-//       }
+      if ($operation.hasClass("try") === true) {
+        // If the current API is already in the try state, uninstall and exit the function
+        $(".swaggerBox").addClass("hide").removeClass("show");
+        $operation.removeClass("try");
+        return false;
+      }
 
-//       $("[data-section-id]").removeClass("try"); // Delete the try class name of all other APIs
+      $("[data-section-id]").removeClass("try"); // Delete the try class name of all other APIs
 
-//       $operation.addClass("try"); // Add try class name to the currently clicked api
-//       // The following 3 lines add class names to some necessary elements to facilitate acquisition or identification
+      $operation.addClass("try"); // Add try class name to the currently clicked api
+      // The following 3 lines add class names to some necessary elements to facilitate acquisition or identification
 
-//       $(".try>div>div:nth-child(2)").addClass("apiBlock");
-//       $(".try .apiBlock>div:nth-child(1)").addClass("fullApiBox");
+      $(".try>div>div:nth-child(2)").addClass("apiBlock");
+      $(".try .apiBlock>div:nth-child(1)").addClass("fullApiBox");
 
-//       if (window.cfg.redocVersion !== 'next' && window.compareVersions.compare(window.cfg.redocVersion, "2.0.0-rc.32", "<=")) {
-//         $(".try .apiBlock>div>div:nth-child(1)").addClass("fullApi");
-//       } else {
-//         $(".try .apiBlock>div>button").addClass("fullApi");
-//       }
+      if (window.cfg.redocVersion !== 'next' && window.compareVersions.compare(window.cfg.redocVersion, "2.0.0-rc.32", "<=")) {
+        $(".try .apiBlock>div>div:nth-child(1)").addClass("fullApi");
+      } else {
+        $(".try .apiBlock>div>button").addClass("fullApi");
+      }
 
-//       var appendSwaggerShadow = function appendSwaggerShadow() {
-//         return $(".try .fullApiBox").append("<div class=\"swaggerShadow\"></div>");
-//       }; // Add a swaggerShadow element to synchronize the height of swagger and use it to occupy space
-//       // If cfg.trySwaggerInApi === true then swaggerShadow will be added under fullApi, otherwise it may be under reqBox
-
-
-//       if (cfg.trySwaggerInApi === true) {
-//         appendSwaggerShadow();
-//       } else {
-//         var requestSel = ".try .apiBlock h3";
-//         $(requestSel).parent().addClass("reqBox");
-
-//         if ($(requestSel).length && $(requestSel).text().includes("Request")) {
-//           $(".try .reqBox").append("<div class=\"swaggerShadow\"></div>");
-//         } else {
-//           appendSwaggerShadow();
-//         }
-//       } // get the click method and api
+      var appendSwaggerShadow = function appendSwaggerShadow() {
+        return $(".try .fullApiBox").append("<div class=\"swaggerShadow\"></div>");
+      }; // Add a swaggerShadow element to synchronize the height of swagger and use it to occupy space
+      // If cfg.trySwaggerInApi === true then swaggerShadow will be added under fullApi, otherwise it may be under reqBox
 
 
-//       var fullApi = $(".try .fullApi").text().replace(cfg.tryText, '').trim();
+      if (cfg.trySwaggerInApi === true) {
+        appendSwaggerShadow();
+      } else {
+        var requestSel = ".try .apiBlock h3";
+        $(requestSel).parent().addClass("reqBox");
 
-//       var _fullApi$match = fullApi.match(/(\w+)(.*)/),
-//           _fullApi$match2 = _slicedToArray(_fullApi$match, 3),
-//           method = _fullApi$match2[1],
-//           api = _fullApi$match2[2]; // Get the position of swaggerShadow
+        if ($(requestSel).length && $(requestSel).text().includes("Request")) {
+          $(".try .reqBox").append("<div class=\"swaggerShadow\"></div>");
+        } else {
+          appendSwaggerShadow();
+        }
+      } // get the click method and api
 
 
-//       var pos = {};
-//       pos = getAbsolutePosition($(".try .swaggerShadow")[0]);
-//       pos = Object.keys(pos).reduce(function (prev, cur, index) {
-//         // Add px to the number without unit, undefined when the number is 0
-//         var val = pos[cur];
-//         return _objectSpread(_objectSpread({}, prev), {}, _defineProperty({}, cur, typeof val === "number" ? val > 0 ? "".concat(val, "px") : undefined : val));
-//       }, {});
-//       var oldHeight = pos.height ? "".concat(pos.height) : undefined; // Move swagger to the position of swaggerShadow
+      var fullApi = $(".try .fullApi").text().replace(cfg.tryText, '').trim();
 
-//       var getSwaggerBoxHeight = function getSwaggerBoxHeight() {
-//         return getAbsolutePosition($(".swaggerBox")[0]).height + "px";
-//       };
+      var _fullApi$match = fullApi.match(/(\w+)(.*)/),
+          _fullApi$match2 = _slicedToArray(_fullApi$match, 3),
+          method = _fullApi$match2[1],
+          api = _fullApi$match2[2]; // Get the position of swaggerShadow
 
-//       $(".swaggerBox").css({
-//         left: "".concat(pos.left),
-//         top: "".concat(pos.top),
-//         width: "".concat(pos.width),
-//         height: oldHeight
-//       }).removeClass("hide").addClass('show'); // Synchronize the size of swaggerShadow to make it as big as swaggerBox
 
-//       $(".swaggerShadow").css({
-//         height: getSwaggerBoxHeight()
-//       }); // scroll the swagger view to the same api position
+      var pos = {};
+      pos = getAbsolutePosition($(".try .swaggerShadow")[0]);
+      pos = Object.keys(pos).reduce(function (prev, cur, index) {
+        // Add px to the number without unit, undefined when the number is 0
+        var val = pos[cur];
+        return _objectSpread(_objectSpread({}, prev), {}, _defineProperty({}, cur, typeof val === "number" ? val > 0 ? "".concat(val, "px") : undefined : val));
+      }, {});
+      var oldHeight = pos.height ? "".concat(pos.height) : undefined; // Move swagger to the position of swaggerShadow
 
-//       var selStr = ".opblock-summary-".concat(method, " [data-path=\"").concat(api, "\"]");
-//       var $swaggerApiDom = $(selStr);
-//       var $opblock = $swaggerApiDom.parents(".opblock"); // Get the currently clicked swagger api, and it is not an expanded element
+      var getSwaggerBoxHeight = function getSwaggerBoxHeight() {
+        return getAbsolutePosition($(".swaggerBox")[0]).height + "px";
+      };
 
-//       if ($opblock.hasClass("open") === false) {
-//         $swaggerApiDom.click(); // turn on
-//       }
+      $(".swaggerBox").css({
+        left: "".concat(pos.left),
+        top: "".concat(pos.top),
+        width: "".concat(pos.width),
+        height: oldHeight
+      }).removeClass("hide").addClass('show'); // Synchronize the size of swaggerShadow to make it as big as swaggerBox
 
-//       $opblock.addClass("open");
-//       console.log("selStr", selStr);
-//       $(".swaggerBox").scrollTo($swaggerApiDom.parent());
+      $(".swaggerShadow").css({
+        height: getSwaggerBoxHeight()
+      }); // scroll the swagger view to the same api position
 
-//       function changeFn() {
-//         var pos = getAbsolutePosition($opblock[0]);
+      var selStr = ".opblock-summary-".concat(method, " [data-path=\"").concat(api, "\"]");
+      var $swaggerApiDom = $(selStr);
+      var $opblock = $swaggerApiDom.parents(".opblock"); // Get the currently clicked swagger api, and it is not an expanded element
 
-//         if (pos.height === 0) {
-//           return false; // The height is 0, no processing
-//         } else {
-//           var newHeight = "".concat(pos.height, "px");
+      if ($opblock.hasClass("open") === false) {
+        $swaggerApiDom.click(); // turn on
+      }
 
-//           if (oldHeight !== newHeight) {
-//             $(".swaggerBox").scrollTo($swaggerApiDom.parent());
-//             $(".swaggerBox").css({
-//               height: newHeight
-//             });
-//             $(".swaggerShadow").css({
-//               height: getSwaggerBoxHeight()
-//             });
-//             oldHeight = newHeight;
-//           }
-//         }
-//       }
+      $opblock.addClass("open");
+      console.log("selStr", selStr);
+      $(".swaggerBox").scrollTo($swaggerApiDom.parent());
 
-//       var observer = new MutationObserver(changeFn);
-//       observer.disconnect();
-//       observer.observe($opblock[0], {
-//         attributes: true,
-//         childList: true,
-//         subtree: true
-//       });
-//     }); // When changing the browser window size, reset the state of swaggerBox
+      function changeFn() {
+        var pos = getAbsolutePosition($opblock[0]);
 
-//     $(window).resize(debounce(function () {
-//       $(".swaggerBox").addClass("hide").removeClass("show").css({
-//         left: 0,
-//         top: 0
-//       });
-//       $("[data-section-id^=\"operation/\"]").removeClass("try");
-//     }, 500));
-//   }
+        if (pos.height === 0) {
+          return false; // The height is 0, no processing
+        } else {
+          var newHeight = "".concat(pos.height, "px");
 
-//   function loadScript(src) {
-//     return new Promise(function (resolve, reject) {
-//       var script = document.createElement('script');
-//       script.type = 'text/javascript';
-//       script.onload = resolve;
-//       script.onerror = reject;
-//       script.src = src;
-//       document.head.append(script);
-//     });
-//   }
+          if (oldHeight !== newHeight) {
+            $(".swaggerBox").scrollTo($swaggerApiDom.parent());
+            $(".swaggerBox").css({
+              height: newHeight
+            });
+            $(".swaggerShadow").css({
+              height: getSwaggerBoxHeight()
+            });
+            oldHeight = newHeight;
+          }
+        }
+      }
 
-//   function debounce(fn, wait) {
-//     // anti-shake
-//     var timer = null;
-//     return function () {
-//       if (timer !== null) {
-//         clearTimeout(timer);
-//       }
+      var observer = new MutationObserver(changeFn);
+      observer.disconnect();
+      observer.observe($opblock[0], {
+        attributes: true,
+        childList: true,
+        subtree: true
+      });
+    }); // When changing the browser window size, reset the state of swaggerBox
 
-//       timer = setTimeout(fn, wait);
-//     };
-//   }
+    $(window).resize(debounce(function () {
+      $(".swaggerBox").addClass("hide").removeClass("show").css({
+        left: 0,
+        top: 0
+      });
+      $("[data-section-id^=\"operation/\"]").removeClass("try");
+    }, 500));
+  }
 
-//   function getAbsolutePosition(domObj) {
-//     // Get element position and size
-//     // If the function has no value, the return object is empty
-//     if (!domObj) return null;
-//     var width = domObj.offsetWidth;
-//     var height = domObj.offsetHeight; // Start traversing outward from the target element, accumulate top and left values
+  function loadScript(src) {
+    return new Promise(function (resolve, reject) {
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.onload = resolve;
+      script.onerror = reject;
+      script.src = src;
+      document.head.append(script);
+    });
+  }
 
-//     var top;
-//     var left;
+  function debounce(fn, wait) {
+    // anti-shake
+    var timer = null;
+    return function () {
+      if (timer !== null) {
+        clearTimeout(timer);
+      }
 
-//     for (top = domObj.offsetTop, left = domObj.offsetLeft; domObj = domObj.offsetParent;) {
-//       top += domObj.offsetTop;
-//       left += domObj.offsetLeft;
-//     }
+      timer = setTimeout(fn, wait);
+    };
+  }
 
-//     var right = document.body.offsetWidth - width - left;
-//     var bottom = document.body.offsetHeight - height - top; // Returns the coordinate set of positioned elements
+  function getAbsolutePosition(domObj) {
+    // Get element position and size
+    // If the function has no value, the return object is empty
+    if (!domObj) return null;
+    var width = domObj.offsetWidth;
+    var height = domObj.offsetHeight; // Start traversing outward from the target element, accumulate top and left values
 
-//     return {
-//       width: width,
-//       height: height,
-//       top: top,
-//       left: left,
-//       right: right,
-//       bottom: bottom
+    var top;
+    var left;
+
+    for (top = domObj.offsetTop, left = domObj.offsetLeft; domObj = domObj.offsetParent;) {
+      top += domObj.offsetTop;
+      left += domObj.offsetLeft;
+    }
+
+    var right = document.body.offsetWidth - width - left;
+    var bottom = document.body.offsetHeight - height - top; // Returns the coordinate set of positioned elements
+
+    return {
+      width: width,
+      height: height,
+      top: top,
+      left: left,
+      right: right,
+      bottom: bottom
 //     };
 //   }
 

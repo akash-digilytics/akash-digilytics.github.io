@@ -333,11 +333,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       left: left,
       right: right,
       bottom: bottom
-//     };
-//   }
+    };
+  }
 
-//   function dataType(data, type) {
-//     var dataType = Object.prototype.toString.call(data).match(/\s(.+)]/)[1].toLowerCase();
-//     return type ? dataType === type.toLowerCase() : dataType;
-//   }
-// })(window);
+  function dataType(data, type) {
+    var dataType = Object.prototype.toString.call(data).match(/\s(.+)]/)[1].toLowerCase();
+    return type ? dataType === type.toLowerCase() : dataType;
+  }
+})(window);

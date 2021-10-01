@@ -64,6 +64,7 @@ paths:
           content: {}
       x-codegen-request-body-name: loginForm
 
+
   /api/v1/{companyId}/ts/documents/classify/add:
     post:
       tags:

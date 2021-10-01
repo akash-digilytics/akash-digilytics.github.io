@@ -18,7 +18,7 @@
   },
   "externalDocs": {
     "description": "Swagger documentation.",
-    "url": "/swagger"
+    "url": "https://api-dev.digilytics.solutions/swagger-ui.html"
   },
   "tags": [
     {
@@ -305,8 +305,8 @@
         "tags": [
           "Archive Case"
         ],
-        "description": "To get the download link for an entire case including the Section, Section Version or New Documents. (Getting all the links or files related to a particular case for archiving.)",
-        "summary": "download",
+        "description": "To get the download link for an entire case including the Section, Section Version or New Documents.",
+        "summary": "Download",
         "operationId": "archiveACaseUsingGET",
         "parameters": [
           {
@@ -412,7 +412,7 @@
         "tags": [
           "Archive Case"
         ],
-        "description": "Deletes all the data permanently if it is hard deleted. It may take upto 6hrs to delete data completely from the database in case of hard delete.",
+        "description": "A case can either be marked as deleted (SOFT Delete) or can be deleted with all the data including static contents like documents, images & thumbnails (HARD Delete). Deletes all the data permanently if it is hard deleted. It may take upto 6hrs to delete data completely from the database in case of hard delete.\n",
         "summary": "delete a case.",
         "operationId": "deleteCaseByProductIdCaseUsingDELETE",
         "parameters": [
@@ -520,7 +520,8 @@
         "tags": [
           "Classification as a service"
         ],
-        "summary": "addDocumentForClassification",
+        "summary": "Upload a Document for classification",
+        "description": "This api is used to upload the pdf document for Classification. Once the document is classified, it appears into the relevant section.\n",
         "operationId": "addDocumentForClassificationUsingPOST",
         "parameters": [
           {
@@ -654,7 +655,8 @@
         "tags": [
           "Classification as a service"
         ],
-        "summary": "getDocumentModelOutput",
+        "summary": "Get Classification Details",
+        "description": "This API can be used to get the structure along with additional metadata regarding Classification, like total number of Unclassified page count, Sections having classified pages indicator, alias of the Section etc\n",
         "operationId": "getDocumentModelOutputUsingGET",
         "parameters": [
           {
@@ -739,7 +741,8 @@
         "tags": [
           "Classification as a service"
         ],
-        "summary": "getDocumentStatus",
+        "summary": "Get Classification Status",
+        "description": "This API can be used to get the structure along with additional metadata regarding Classification, like total number of unclassified page count, Sections having classified pages indicator, alias of the Section and document status.\n",
         "operationId": "getDocumentStatusUsingGET",
         "parameters": [
           {
@@ -824,7 +827,8 @@
         "tags": [
           "Classification as a service"
         ],
-        "summary": "getDocumentDelete",
+        "summary": "Delete document",
+        "description": "Delete the document based on the given referenceId, groupId and document id. If client provides all three ids, the document will be deleted. If the reference id and group id is provided, then the document will be deleted on the basis of that.\n\n*_All Documents are soft deleted._\n",
         "operationId": "getDocumentDeleteUsingDELETE",
         "parameters": [
           {
@@ -924,7 +928,8 @@
         "tags": [
           "Classification as a service"
         ],
-        "summary": "documentReclassify",
+        "summary": "Re-classify Document",
+        "description": "This will re-trigger the Classification based on referenceid, groupid and documentid. It checks the status of the respective document and if it’s in the failed state, manual re-triggering of Classification can be done.\n",
         "operationId": "documentReclassifyUsingGET",
         "parameters": [
           {
@@ -1027,7 +1032,8 @@
         "tags": [
           "Classification as a service"
         ],
-        "summary": "getDocumentList",
+        "summary": "Get document List",
+        "description": "This will return all the documents based on companyId and put some other parameters like page, size, sort etc.\n",
         "operationId": "getDocumentListUsingGET",
         "parameters": [
           {
@@ -1158,7 +1164,8 @@
         "tags": [
           "Extraction as a Service"
         ],
-        "summary": "addDocumentForExtraction",
+        "summary": "Upload Document for Extraction",
+        "description": "Once the document is uploaded, our system performs a series of steps such as performing OCR and executing the Extraction Model, configuring it with the companyId created at the time of company configuration and client onboarding using our admin module. Once these steps are completed and Extraction is requested, model is invoked to do the Extraction based on the Document Type.\n",
         "operationId": "addDocumentForExtractionUsingPOST",
         "parameters": [
           {
@@ -1305,7 +1312,8 @@
         "tags": [
           "Extraction as a Service"
         ],
-        "summary": "getDocumentExtractionStatus",
+        "summary": "Extraction Status",
+        "description": "This API returns the current status and if the status is success, it returns the extraction data along with the success status",
         "operationId": "getDocumentExtractionStatusUsingGET",
         "parameters": [
           {
@@ -1390,7 +1398,8 @@
         "tags": [
           "Extraction as a Service"
         ],
-        "summary": "getDocumentModelOutput",
+        "summary": "Get Extracted Data",
+        "description": "Get the extracted data from the document",
         "operationId": "getDocumentModelOutputUsingGET_1",
         "parameters": [
           {

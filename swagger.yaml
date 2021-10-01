@@ -1,280 +1,1230 @@
-swagger: '2.0'
+openapi: 3.0.1
 info:
-  description: "RevEl works on below terminologoies \n
-  **companyId** - In a multi-tenant environemnt this is the client Id supplied. \n
-  **productId** - For a client there can mutiple file structures known as products for Digilytics, This will be configured on Digilytics portal.\n
-  **sectionId** - pages are divided into sections and subsections  (called as documents).  \n
-  **businessEntityId** - Client reference number for a case. \n
-  **caseId** - Digilytics reference number for a case. \n\n
-  We will share the testing credentials if needed.
-  "
-  version: 0.0.1
   title: RevEl API Documentation.
+  description: "RevEl works on below terminologoies \n **companyId** - In a multi-tenant\
+    \ environemnt this is the client Id supplied. \n **productId** - For a client\
+    \ there can mutiple file structures known as products for Digilytics, This will\
+    \ be configured on Digilytics portal.\n **sectionId** - pages are divided into\
+    \ sections and subsections  (called as documents).  \n **businessEntityId** -\
+    \ Client reference number for a case. \n **caseId** - Digilytics reference number\
+    \ for a case. \n\n We will share the testing credentials if needed. "
   contact:
-    email: "contact@digilytics.ai"
+    email: contact@digilytics.ai
   license:
-    name: "Digilytics©"
-#
-host: 'client-id.digilytics.solutions'
-basePath: /
+    name: Digilytics©
+  version: 0.0.1
+servers:
+- url: https://client-id.digilytics.solutions/
 tags:
-  - name: auth
-    description: Authentication related APIs.
-  - name: archive-case
-    description: Getting all the links or files related to a particular case for archiving.
-schemes:
-- "https"
+- name: auth
+  description: Authentication related APIs.
+- name: archive-case
+  description: Getting all the links or files related to a particular case for archiving.
+- name: Add document
+
+
 paths:
   /api/v1/auth/login:
     post:
       tags:
-        - auth
+      - auth
       summary: login
       operationId: loginUsingPOST
-      consumes:
-        - application/json
-      produces:
-        - '*/*'
+      parameters:
+      - name: Authorization
+        in: header
+        description: Id Token to access the protected resource.
+        schema:
+          type: string
+      requestBody:
+        description: loginForm
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginForm'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserLoginModel'
+        201:
+          description: Created
+          content: {}
+        401:
+          description: Unauthorized
+          content: {}
+        403:
+          description: Forbidden
+          content: {}
+        404:
+          description: Not Found
+          content: {}
+      x-codegen-request-body-name: loginForm
+
+  /api/v1/{companyId}/ts/documents/classify/add:
+    post:
+      tags:
+        - Add document
+      summary: tsClassifyDocument
+      operationId: tsClassifyDocumentUsingPOST
       parameters:
         - name: Authorization
           in: header
           description: Id Token to access the protected resource.
-          required: false
-          type: string
-        - in: body
-          name: loginForm
-          description: loginForm
+          schema:
+            type: string
+        - name: companyId
+          in: path
+          description: companyId
           required: true
           schema:
-            $ref: '#/definitions/LoginForm'
+            type: integer
+            format: int64
+        - name: multiApplicantForm[0].id
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: multiApplicantForm[0].referenceId
+          in: query
+          schema:
+            type: string
+        - name: multiApplicantForm[0].displayTitle
+          in: query
+          schema:
+            type: string
+        - name: multiApplicantForm[0].tagPrecedence
+          in: query
+          schema:
+            type: string
+            enum:
+              - PRIMARY
+              - SECONDARY
+        - name: businessEntityId
+          in: query
+          schema:
+            type: string
+        - name: productId
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: sectionId
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: type
+          in: query
+          schema:
+            type: string
+            enum:
+              - LOCAL
+              - AZURE
+              - FTP
+        - name: file
+          in: query
+          schema:
+            type: file
+        - name: fileUrl
+          in: query
+          schema:
+            type: string
       responses:
         '200':
           description: OK
-          schema:
-            $ref: '#/definitions/UserLoginModel'
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/DocumentModel'
         '201':
           description: Created
+          content: {}
         '401':
           description: Unauthorized
+          content: {}
         '403':
           description: Forbidden
+          content: {}
         '404':
           description: Not Found
+          content: {}
 
-      
-  '/api/v1/{companyId}/e-file/{productId}/download/':
+  /api/v1/{companyId}/e-file/{productId}/download/:
     get:
       tags:
-        - archive-case
+      - archive-case
       summary: Archive a case.
       operationId: getArchiveLinkForPDFDownloadByCaseIdForCaseAndSectionsUsingGET
-      produces:
-        - '*/*'
       parameters:
-        - name: Authorization
-          in: header
-          description: Id Token to access the protected resource.
-          required: false
+      - name: Authorization
+        in: header
+        description: Id Token to access the protected resource.
+        schema:
           type: string
-        - name: companyId
-          in: path
-          description: companyId
-          required: true
+      - name: companyId
+        in: path
+        description: companyId
+        required: true
+        schema:
           type: integer
           format: int64
-        - name: productId
-          in: path
-          description: productId
-          required: true
+      - name: productId
+        in: path
+        description: productId
+        required: true
+        schema:
           type: integer
           format: int64
-        - name: businessEntityId
-          in: query
-          description: Business Entity id of the case.
-          required: true
-          type: string  
-        - name: type
-          in: query
-          description: type
-          required: false
+      - name: businessEntityId
+        in: query
+        description: Business Entity id of the case.
+        required: true
+        schema:
+          type: string
+      - name: type
+        in: query
+        description: type
+        schema:
           type: string
           default: LINK
           enum:
-            - LINK
+          - LINK
       responses:
-        '200':
+        200:
           description: Boolean status.
-          schema:
-            $ref: '#/definitions/BusinessCaseArchiveModel'
-        '401':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/BusinessCaseArchiveModel'
+        401:
           description: Bad credentials
-        '403':
+          content: {}
+        403:
           description: Access forbidden.
-        '404':
+          content: {}
+        404:
           description: Not found.
-          
-  '/api/v1/{companyId}/e-file/{productId}':
+          content: {}
+  /api/v1/{companyId}/e-file/{productId}:
     delete:
       tags:
-        - archive-case
-      summary: Delete a case. Deletes all the data permanently if it is hard deleted. It may take upto 6 hrs to delete data completely from the database in case of hard delete.
+      - archive-case
+      summary: Delete a case. Deletes all the data permanently if it is hard deleted.
+        It may take upto 6 hrs to delete data completely from the database in case
+        of hard delete.
       operationId: deleteCaseUsingDELETE
-      produces:
-        - '*/*'
+      parameters:
+      - name: Authorization
+        in: header
+        description: Id Token to access the protected resource.
+        schema:
+          type: string
+      - name: companyId
+        in: path
+        description: companyId
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: productId
+        in: path
+        description: caseId
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: businessEntityId
+        in: query
+        description: Business Entity id of the case.
+        required: true
+        schema:
+          type: string
+      - name: type
+        in: query
+        description: type
+        schema:
+          type: string
+          default: SOFT
+          enum:
+          - SOFT
+          - HARD
+      responses:
+        200:
+          description: Boolean status.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/BooleanModel'
+        204:
+          description: No Content
+          content: {}
+        401:
+          description: Bad credentials
+          content: {}
+        403:
+          description: Access forbidden.
+          content: {}
+        404:
+          description: Case not found.
+          content: {}
+
+
+  /oculyse/api/v1/{companyId}/classification/document:
+    post:
+      tags:
+        - Classification as a service
+      summary: addDocumentForClassification
+      operationId: addDocumentForClassificationUsingPOST
       parameters:
         - name: Authorization
           in: header
           description: Id Token to access the protected resource.
-          required: false
-          type: string
+          schema:
+            type: string
+        - name: file
+          in: query
+          description: >-
+            pdf file to be uploaded for classification. Upload types currently
+            supported are Local, Azure
+          schema:
+            type: file
+        - name: fileUrl
+          in: query
+          description: Public url of the file
+          schema:
+            type: string
+        - name: type
+          in: query
+          description: this parameter defines the upload type of file source
+          schema:
+            type: string
+            enum:
+              - LOCAL
+              - AZURE
+              - FTP
+        - name: companyId
+          in: path
+          description: Unique id of the company provided by RevEl.
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: classificationScore
+          in: query
+          description: This is optional for the client and Its default value is 0.7
+          schema:
+            type: number
+            format: double
+            default: 0.7
+        - name: externalDocReferenceId
+          in: query
+          description: >-
+            Id will be entered by the Client while uploading the document. One
+            Id can reference multiple documents.
+          schema:
+            type: string
+        - name: externalDocGroupId
+          in: query
+          description: >-
+            Id will be entered by the Client while uploading the document. One
+            Id can reference multiple documents.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/BaseDocumentModel'
+        '201':
+          description: Created
+          content: {}
+        '401':
+          description: Unauthorized
+          content: {}
+        '403':
+          description: Forbidden
+          content: {}
+        '404':
+          description: Not Found
+          content: {}
+  
+      
+  /api/v1/{companyId}/classification/document/{documentId}:
+    get:
+      tags:
+        - Classification as a service
+      summary: getDocumentModelOutput
+      operationId: getDocumentModelOutputUsingGET
+      parameters:
+        - name: Authorization
+          in: header
+          description: Id Token to access the protected resource.
+          schema:
+            type: string
+        - name: companyId
+          in: path
+          description: Unique id of the company provided by RevEl.
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: documentId
+          in: path
+          description: document is created while document uploaded
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GenericDocumentOutputModel'
+        '401':
+          description: Unauthorized
+          content: {}
+        '403':
+          description: Forbidden
+          content: {}
+        '404':
+          description: Not Found
+          content: {}
+ 
+
+  /api/v1/{companyId}/classification/document/{documentId}/status:
+    get:
+      tags:
+        - Classification as a service
+      summary: getDocumentStatus
+      operationId: getDocumentStatusUsingGET
+      parameters:
+        - name: Authorization
+          in: header
+          description: Id Token to access the protected resource.
+          schema:
+            type: string
+        - name: companyId
+          in: path
+          description: Unique id of the company provided by RevEl.
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: documentId
+          in: path
+          description: document id created while document upload
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GenericDocumentStatusModel'
+        '401':
+          description: Unauthorized
+          content: {}
+        '403':
+          description: Forbidden
+          content: {}
+        '404':
+          description: Not Found
+          content: {}
+    
+
+  /api/v1/{companyId}/classification/document/delete:
+    delete:
+      tags:
+        - Classification as a service
+      summary: getDocumentDelete
+      operationId: getDocumentDeleteUsingDELETE
+      parameters:
+        - name: Authorization
+          in: header
+          description: Id Token to access the protected resource.
+          schema:
+            type: string
+        - name: companyId
+          in: path
+          description: Unique Id of the company
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: documentId
+          in: query
+          description: unique id for deleting the document
+          schema:
+            type: integer
+            format: int64
+        - name: referenceId
+          in: query
+          description: >-
+            Id will be entered by the Client while deleting the document. One Id
+            can reference multiple documents.
+          schema:
+            type: string
+        - name: groupId
+          in: query
+          description: >-
+            Id will be entered by the Client while deleting the document. One Id
+            can reference multiple documents.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/BooleanModel'
+        '204':
+          description: No Content
+          content: {}
+        '401':
+          description: Unauthorized
+          content: {}
+        '403':
+          description: Forbidden
+          content: {}
+   
+  /api/v1/{companyId}/classification/reclassify:
+    get:
+      tags:
+        - Classification as a service
+      summary: documentReclassify
+      operationId: documentReclassifyUsingGET
+      parameters:
+        - name: Authorization
+          in: header
+          description: Id Token to access the protected resource.
+          schema:
+            type: string
+        - name: companyId
+          in: path
+          description: Unique Id of the company
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: documentId
+          in: query
+          description: unique id for deleting the document
+          schema:
+            type: integer
+            format: int64
+        - name: referenceId
+          in: query
+          description: >-
+            Id will be entered by the Client while deleting the document. One Id
+            can reference multiple documents.
+          schema:
+            type: string
+        - name: groupId
+          in: query
+          description: >-
+            Id will be entered by the Client while deleting the document. One Id
+            can reference multiple documents.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BaseDocumentModel'
+        '401':
+          description: Unauthorized
+          content: {}
+        '403':
+          description: Forbidden
+          content: {}
+        '404':
+          description: Not Found
+          content: {}
+   
+  /api/v1/{companyId}/classification/documents:
+    get:
+      tags:
+        - Classification as a service
+      summary: getDocumentList
+      operationId: getDocumentListUsingGET
+      parameters:
+        - name: Authorization
+          in: header
+          description: Id Token to access the protected resource.
+          schema:
+            type: string
         - name: companyId
           in: path
           description: companyId
           required: true
-          type: integer
-          format: int64
-        - name: productId
-          in: path
-          description: caseId
-          required: true
-          type: integer
-          format: int64
-        - name: businessEntityId
+          schema:
+            type: integer
+            format: int64
+        - name: actionType
           in: query
-          description: Business Entity id of the case.
-          required: true
-          type: string
-        - name: type
+          description: actionType
+          schema:
+            type: string
+        - name: groupId
           in: query
-          description: type
-          required: false
-          type: string
-          default: SOFT
-          enum:
-            - SOFT
-            - HARD
+          description: groupId
+          schema:
+            type: string
+        - name: searchText
+          in: query
+          description: searchText
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: Results page you want to retrieve (0..N)
+          schema:
+            type: ref
+        - name: size
+          in: query
+          description: Number of records per page.
+          schema:
+            type: ref
+        - name: sort
+          in: query
+          description: >-
+            Sorting criteria in the format: property(,asc|desc). Default sort
+            order is ascending. Multiple sort criteria are supported.
+          style: form
+          explode: true
+          schema:
+            type: array
+            items:
+              type: string
       responses:
         '200':
-          description: Boolean status.
-          schema:
-            $ref: '#/definitions/BooleanModel'
-        '204':
-          description: No Content
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GenericDocumentDetailsModel'
         '401':
-          description: Bad credentials
+          description: Unauthorized
+          content: {}
         '403':
-          description: Access forbidden.
+          description: Forbidden
+          content: {}
         '404':
-          description: Case not found. 
-  
-definitions:
- LoginForm:
-    type: object
-    properties:
-      email:
-        type: string
-        description: Email of the user.
-      password:
-        type: string
-        description: Password of the user.
-    title: LoginForm
+          description: Not Found
+          content: {}          
+  /api/v1/{companyId}/extraction/document:
+    post:
+      tags:
+        - Extraction as a Service
+      summary: addDocumentForExtraction
+      operationId: addDocumentForExtractionUsingPOST
+      parameters:
+        - name: Authorization
+          in: header
+          description: Id Token to access the protected resource.
+          schema:
+            type: string
+        - name: file
+          description: pdf file to be uploaded for classification
+          in: query
+          schema:
+            type: file
+        - name: fileUrl
+          description: url of the file if upload type is AZURE
+          in: query
+          schema:
+            type: string
+        - name: type
+          description: >-
+            this parameter defines the upload type of file source. Allowed
+            values are (AZURE,LOCAL,FTP).
+          in: query
+          schema:
+            type: string
+            enum:
+              - LOCAL
+              - AZURE
+              - FTP
+        - name: companyId
+          in: path
+          description: Unique id of the company provided by RevEl
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: classificationScore
+          in: query
+          description: This is optional for the client and Its default value is 0.7
+          schema:
+            type: number
+            format: double
+            default: 0.7
+        - name: externalDocReferenceId
+          in: query
+          description: >-
+            Id will be entered by the Client while deleting the document. One Id
+            can reference multiple documents.
+          schema:
+            type: string
+        - name: externalDocGroupId
+          in: query
+          description: >-
+            Id will be entered by the Client while deleting the document. One Id
+            can reference multiple documents.
+          schema:
+            type: string
+        - name: alias
+          in: query
+          description: alias
+          required: true
+          schema:
+            type: string
+            enum:
+              - BST
+              - DL
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/DocumentIdUrlModel'
+        '201':
+          description: Created
+          content: {}
+        '401':
+          description: Unauthorized
+          content: {}
+        '403':
+          description: Forbidden
+          content: {}
+        '404':
+          description: Not Found
+          content: {}
+   
+  /api/v1/{companyId}/extraction/document/{documentId}/status:
+    get:
+      tags:
+        - Extraction as a Service
+      summary: getDocumentExtractionStatus
+      operationId: getDocumentExtractionStatusUsingGET
+      parameters:
+        - name: Authorization
+          in: header
+          description: Id Token to access the protected resource.
+          schema:
+            type: string
+        - name: companyId
+          in: path
+          description: Unique Id of the company provide by RevEl
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: documentId
+          in: path
+          description: id of the uploaded document
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GenericDocumentExtractionStatusModel'
+        '401':
+          description: Unauthorized
+          content: {}
+        '403':
+          description: Forbidden
+          content: {}
+        '404':
+          description: Not Found
+          content: {}
 
- BooleanModel:
-    type: object
-    properties:
-      status:
-        type: boolean
-        example: false
-        description: Success or failure identifier.
-    title: BooleanModel
-
- ArchiveSectionLinkModel:
-    type: object
-    properties:
-      alias:
-        type: string
-        description: Alias associated with the section.
-      hasPages:
-        type: boolean
-        example: false
-        description: true if this section can have pages classified by the system/user.
-      id:
-        type: integer
-        format: int64
-        description: Id of the section.
-      link:
-        type: string
-        description: Link for downloading pdf of the section.
-      name:
-        type: string
-        description: Name of the section.
-      subSections:
-        type: array
-        description: All the subsections/documents of a case.
-        items:
-          $ref: '#/definitions/ArchiveSectionLinkModel'  
-    title: ArchiveSectionLinkModel
 
 
- BusinessCaseArchiveModel:
-    type: object
-    properties:
-      businessEntityId:
-        type: string
-        description: The business entity id provided at the time of creation of case.
-      id:
-        type: integer
-        format: int64
-        description: Entity identifier. 
-      link:
-        type: string
-        description: Url for downloading the pdf version of the case.
-      name:
-        type: string
-        description: The name of the case given at the time of creation of the case.
-      sections:
-        type: array
-        description: All the subsections/documents of a case.
-        items:
-          $ref: '#/definitions/ArchiveSectionLinkModel'
-    title: BusinessCaseArchiveModel
+  /api/v1/{companyId}/extraction/document/{documentId}:
+    get:
+      tags:
+        - Extraction as a Service
+      summary: getDocumentModelOutput
+      operationId: getDocumentModelOutputUsingGET_1
+      parameters:
+        - name: Authorization
+          in: header
+          description: Id Token to access the protected resource.
+          schema:
+            type: string
+        - name: companyId
+          in: path
+          description: companyId
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: documentId
+          in: path
+          description: documentId
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GenericDocumentExtractionOutputModel'
+        '401':
+          description: Unauthorized
+          content: {}
+        '403':
+          description: Forbidden
+          content: {}
+        '404':
+          description: Not Found
+          content: {}
 
-
-  
- UserLoginModel:
-    type: object
-    properties:
-      idToken:
-        type: string
-      loginType:
-        type: string
-        enum:
+components:
+  schemas:
+    LoginForm:
+      title: LoginForm
+      type: object
+      properties:
+        email:
+          type: string
+          description: Email of the user.
+        password:
+          type: string
+          description: Password of the user.
+    BooleanModel:
+      title: BooleanModel
+      type: object
+      properties:
+        status:
+          type: boolean
+          description: Success or failure identifier.
+          example: false
+    ArchiveSectionLinkModel:
+      title: ArchiveSectionLinkModel
+      type: object
+      properties:
+        alias:
+          type: string
+          description: Alias associated with the section.
+        hasPages:
+          type: boolean
+          description: true if this section can have pages classified by the system/user.
+          example: false
+        id:
+          type: integer
+          description: Id of the section.
+          format: int64
+        link:
+          type: string
+          description: Link for downloading pdf of the section.
+        name:
+          type: string
+          description: Name of the section.
+        subSections:
+          type: array
+          description: All the subsections/documents of a case.
+          items:
+            $ref: '#/components/schemas/ArchiveSectionLinkModel'
+    BusinessCaseArchiveModel:
+      title: BusinessCaseArchiveModel
+      type: object
+      properties:
+        businessEntityId:
+          type: string
+          description: The business entity id provided at the time of creation of
+            case.
+        id:
+          type: integer
+          description: Entity identifier.
+          format: int64
+        link:
+          type: string
+          description: Url for downloading the pdf version of the case.
+        name:
+          type: string
+          description: The name of the case given at the time of creation of the case.
+        sections:
+          type: array
+          description: All the subsections/documents of a case.
+          items:
+            $ref: '#/components/schemas/ArchiveSectionLinkModel'
+    UserLoginModel:
+      title: UserLoginModel
+      type: object
+      properties:
+        idToken:
+          type: string
+        loginType:
+          type: string
+          enum:
           - WL
           - CR
           - SC
-      user:
-        $ref: '#/definitions/UserBaseModel'
-    title: UserLoginModel 
-
-
- UserBaseModel:
-    type: object
-    properties:
-      companyUserId:
-        type: string
-      email:
-        type: string
-      id:
-        type: integer
-        format: int64
-      name:
-        type: string
-      roles:
-        type: array
-        items:
+        user:
+          $ref: '#/components/schemas/UserBaseModel'
+    UserBaseModel:
+      title: UserBaseModel
+      type: object
+      properties:
+        companyUserId:
           type: string
-      rolesDisplayName:
-        type: array
-        items:
+        email:
           type: string
-    title: UserBaseModel
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        roles:
+          type: array
+          items:
+            type: string
+        rolesDisplayName:
+          type: array
+          items:
+            type: string
+    DocumentModel:
+      title: DocumentModel
+      type: object
+      properties:
+        addedBy:
+          type: string
+          description: User who has uploaded the file for classification.
+        caseId:
+          type: integer
+          description: Case id under which file is uploaded for classification.
+          format: int64
+        createdOn:
+          type: string
+          description: Uploaded time of the document.
+          format: date-time
+        efileName:
+          type: string
+        efileOwner:
+          type: string
+        efileProductName:
+          type: string
+        id:
+          type: integer
+          description: id of the uploaded file/document.
+          format: int64
+        message:
+          type: string
+        noOfDocumentsUploaded:
+          type: integer
+          description: Total no of document uploaded inside the given efile/case.
+          format: int64
+        productId:
+          type: integer
+          description: Product id under which file is uploaded for classification.
+          format: int64
+        status:
+          type: string
+        url:
+          type: string
+          description: Uploaded document url.
+    BaseDocumentModel:
+      title: BaseDocumentModel
+      type: object
+      properties:
+        addedBy:
+          type: string
+          description: User who has uploaded the file for classification.
+        createdOn:
+          type: string
+          description: Document uploading date and time
+          format: date-time
+        efileName:
+          type: string
+          description: Name of the upload document
+        efileOwner:
+          type: string
+        id:
+          type: integer
+          description: id of the uploaded file/document.
+          format: int64
+        message:
+          type: string
+          description: comment at the time of uploading document
+        noOfDocumentsUploaded:
+          type: integer
+          description: Total no of document uploaded inside the given efile/case.
+          format: int64
+        status:
+          type: string
+          description: Status at the time of uploading document
+        url:
+          type: string
+          description: Secure url of the uploaded document
+    GenericDocumentOutputModel:
+      title: GenericDocumentOutputModel
+      type: object
+      properties:
+        documentOutput:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/GenericPageInfoModel'
+    GenericPageInfoModel:
+      title: GenericPageInfoModel
+      type: object
+      properties:
+        label:
+          type: integer
+          format: int32
+        pageAlias:
+          description: page type like bst, dl, etc
+          type: string
+        pageId:
+          type: integer
+          format: int64
+        pageNumber:
+          type: integer
+          format: int32
+        pageScore:
+          description: page score to identify the page type
+          type: number
+          format: double
+    GenericDocumentStatusModel:
+      title: GenericDocumentStatusModel
+      type: object
+      properties:
+        documentOutput:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/GenericPageInfoModel'
+    GenericDocumentDetailsModel:
+      type: object
+      properties:
+        dashboardMessage:
+          type: string
+        dashboardStatus:
+          type: string
+        fileName:
+          description: filename of the uploaded document
+          type: string
+        groupId:
+          type: string
+        id:
+          description: id of the uploaded document
+          type: integer
+          format: int64
+        size:
+          description: In the output number of records uploading date and time
+          type: number
+          format: double
+        status:
+          description: Status of the document
+          type: string
+        timeOfUpload:
+          description: Document uploading date and time
+          type: string
+          format: date-time
+        uploadedBy:
+          description: user who uploads the document
+          type: string
+      title: GenericDocumentDetailsModel  
+    DocumentIdUrlModel:
+      type: object
+      properties:
+        id:
+          description: id of the uploaded document
+          type: integer
+          format: int64
+        url:
+          description: secure url of the uploaded document
+          type: string
+          allowEmptyValue: false
+      title: DocumentIdUrlModel
+    GenericDocumentExtractionStatusModel:
+      title: GenericDocumentExtractionStatusModel
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/BankStatementExtractedDataResponseMapper'
+        extractionStatusType:
+          description: contains the status message of the extraction request
+          type: string
+          enum:
+            - REQUESTED
+            - IN_PROGRESS
+            - SUCCESS
+            - FAILED
+    BankStatementExtractedDataResponseMapper:
+      title: BankStatementExtractedDataResponseMapper
+      type: object
+      properties:
+        extractionResults:
+          $ref: '#/components/schemas/ExtractionResultMapper'
+        success:
+          type: string
+    ExtractionResultMapper:
+      title: ExtractionResultMapper
+      type: object
+      properties:
+        documentTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentTypeResponseMapper'
+        unsortedPages:
+          description: >-
+            This field represents the set of pages which are not identified by
+            the model
+          type: array
+          items:
+            $ref: '#/components/schemas/PageIndexMapper'
+        version:
+          type: string
+    PageIndexMapper:
+      title: PageIndexMapper
+      type: object
+      properties:
+        pageId:
+          description: unique id of the page
+          type: integer
+          format: int64
+        requestIndex:
+          type: integer
+          format: int32
+    DocumentTypeResponseMapper:
+      title: DocumentTypeResponseMapper
+      type: object
+      properties:
+        documentTypeId:
+          description: This is the Unique Id of the documentType
+          type: integer
+          format: int64
+        documents:
+          description: list of documents extracted
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentResultMapper'
+        type:
+          description: documentType states the name of the document eg. Passport, DL etc
+          type: string
+    DocumentResultMapper:
+      title: DocumentResultMapper
+      type: object
+      properties:
+        confidence:
+          type: number
+          format: float
+        docAttributes:
+          $ref: '#/components/schemas/DocumentAttributes'
+        id:
+          type: integer
+          format: int64
+        pages:
+          schema: null
+          type: array
+          items:
+            $ref: '#/components/schemas/PageResultMapper'
+        uuid:
+          type: string
+    PageResultMapper:
+      title: PageResultMapper
+      type: object
+      properties:
+        documentIndex:
+          type: integer
+          format: int32
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldResultMapper'
+        pageId:
+          type: integer
+          format: int64
+        requestIndex:
+          type: integer
+          format: int32
+    FieldResultMapper:
+      title: FieldResultMapper
+      type: object
+      properties:
+        boundingBox:
+          type: array
+          items:
+            type: array
+            items:
+              type: integer
+              format: int32
+        confidence:
+          type: number
+          format: float
+        edited:
+          type: boolean
+        field_type:
+          type: string
+        format:
+          type: string
+        formatted_value:
+          description: formatted value of the extracted field
+          type: string
+        key:
+          description: name of the extracted field
+          type: string
+        label:
+          type: string
+        pageId:
+          type: integer
+          format: int64
+        type:
+          type: string
+        uuid:
+          type: string
+        value:
+          description: value of the extracted field
+          type: object
+          properties: {}
+    DocumentAttributes:
+      title: DocumentAttributes
+      type: object
+      properties:
+        bank:
+          type: string
+        endDate:
+          type: string
+        startDate:
+          type: string
+        transaction_order:
+          type: integer
+          format: int32
+    GenericDocumentExtractionOutputModel:
+      title: GenericDocumentExtractionOutputModel
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/BankStatementExtractedDataResponseMapper'

@@ -64,7 +64,6 @@ paths:
           content: {}
       x-codegen-request-body-name: loginForm
 
-
   /api/v1/{companyId}/ts/documents/classify/add:
     post:
       tags:
@@ -355,7 +354,6 @@ paths:
           description: Not Found
           content: {}
   
-      
   /api/v1/{companyId}/classification/document/{documentId}:
     get:
       tags:
@@ -399,7 +397,6 @@ paths:
           description: Not Found
           content: {}
  
-
   /api/v1/{companyId}/classification/document/{documentId}/status:
     get:
       tags:
@@ -808,9 +805,393 @@ paths:
         '404':
           description: Not Found
           content: {}
+          
+  /api/v1/{companyId}/extraction/delete-and-resubmit:
+    post:
+      tags:
+      - Extraction as a Service
+      summary: deleteAndResubmitToAccountScore
+      operationId: deleteAndResubmitToAccountScoreUsingPOST
+      parameters:
+      - name: Authorization
+        in: header
+        description: Id Token to access the protected resource.
+        schema:
+          type: string
+      - name: companyId
+        in: path
+        description: companyId
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: groupId
+        in: query
+        description: groupId
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AccountScoreStatusModel'
+        201:
+          description: Created
+          content: {}
+        401:
+          description: Unauthorized
+          content: {}
+        403:
+          description: Forbidden
+          content: {}
+        404:
+          description: Not Found
+          content: {}
+
+  /api/v1/{companyId}/extraction/get-documents/{groupId}:
+    get:
+      tags:
+      - Extraction as a Service
+      summary: getDocuments
+      operationId: getDocumentsUsingGET_1
+      parameters:
+      - name: Authorization
+        in: header
+        description: Id Token to access the protected resource.
+        schema:
+          type: string
+      - name: companyId
+        in: path
+        description: companyId
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: groupId
+        in: path
+        description: groupId
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DocumentDetailsModel'
+        401:
+          description: Unauthorized
+          content: {}
+        403:
+          description: Forbidden
+          content: {}
+        404:
+          description: Not Found
+          content: {}
+
+  /api/v1/{companyId}/extraction/get-pdf-url/{documentId}:
+    get:
+      tags:
+      - Extraction as a Service
+      summary: getPdfUrl
+      operationId: getPdfUrlUsingGET
+      parameters:
+      - name: Authorization
+        in: header
+        description: Id Token to access the protected resource.
+        schema:
+          type: string
+      - name: companyId
+        in: path
+        description: companyId
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: documentId
+        in: path
+        description: documentId
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/DocumentUrlModel'
+        401:
+          description: Unauthorized
+          content: {}
+        403:
+          description: Forbidden
+          content: {}
+        404:
+          description: Not Found
+          content: {}
+  /api/v1/{companyId}/extraction/retry-extraction/{documentId}:
+    get:
+      tags:
+      - Extraction as a Service
+      summary: retryExtraction
+      operationId: retryExtractionUsingGET
+      parameters:
+      - name: Authorization
+        in: header
+        description: Id Token to access the protected resource.
+        schema:
+          type: string
+      - name: companyId
+        in: path
+        description: companyId
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: documentId
+        in: path
+        description: documentId
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ExtractionDetailsModel'
+        401:
+          description: Unauthorized
+          content: {}
+        403:
+          description: Forbidden
+          content: {}
+        404:
+          description: Not Found
+          content: {}          
+          
+  /api/v1/{companyId}/extraction/update-extraction-data/{documentId}:
+    post:
+      tags:
+      - Extraction as a Service
+      summary: updateModelOutputData
+      operationId: updateModelOutputDataUsingPOST
+      parameters:
+      - name: Authorization
+        in: header
+        description: Id Token to access the protected resource.
+        schema:
+          type: string
+      - name: companyId
+        in: path
+        description: companyId
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: documentId
+        in: path
+        description: documentId
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: resubmit
+        in: query
+        description: resubmit
+        schema:
+          type: boolean
+      requestBody:
+        description: data
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AccountScoreStatusModel'
+        201:
+          description: Created
+          content: {}
+        401:
+          description: Unauthorized
+          content: {}
+        403:
+          description: Forbidden
+          content: {}
+        404:
+          description: Not Found
+          content: {}
+      x-codegen-request-body-name: data
+      
+  /api/v1/{companyId}/extraction/{documentId}/status:
+    get:
+      tags:
+      - Extraction as a Service
+      summary: getGenericDocumentExtractionStatus
+      operationId: getGenericDocumentExtractionStatusUsingGET
+      parameters:
+      - name: Authorization
+        in: header
+        description: Id Token to access the protected resource.
+        schema:
+          type: string
+      - name: companyId
+        in: path
+        description: companyId
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: documentId
+        in: path
+        description: documentId
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CoreExtractionStatusModel'
+        401:
+          description: Unauthorized
+          content: {}
+        403:
+          description: Forbidden
+          content: {}
+        404:
+          description: Not Found
+          content: {}
+
+  /api/v1/{companyId}/classification/documents/pagination:
+    get:
+      tags:
+      - Classification as a service
+      summary: getDocumentsPaginationData
+      operationId: getDocumentsPaginationDataUsingGET
+      parameters:
+      - name: Authorization
+        in: header
+        description: Id Token to access the protected resource.
+        schema:
+          type: string
+      - name: companyId
+        in: path
+        description: companyId
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: actionType
+        in: query
+        description: actionType
+        schema:
+          type: string
+      - name: groupId
+        in: query
+        description: groupId
+        schema:
+          type: string
+      - name: searchText
+        in: query
+        description: searchText
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GenericDocumentPaginationModel'
+        401:
+          description: Unauthorized
+          content: {}
+        403:
+          description: Forbidden
+          content: {}
+        404:
+          description: Not Found
+          content: {}
 
 components:
   schemas:
+    GenericDocumentPaginationModel:
+      title: GenericDocumentPaginationModel
+      type: object
+      properties:
+        totalElements:
+          type: integer
+          format: int64
+    CoreExtractionStatusModel:
+      title: CoreExtractionStatusModel
+      type: object
+      properties:
+        message:
+          type: string
+        status:
+          type: string
+          enum:
+          - REQUESTED
+          - IN_PROGRESS
+          - SUCCESS
+          - FAILED
+    ExtractionDetailsModel:
+      title: ExtractionDetailsModel
+      type: object
+      properties:
+        extractionMessage:
+          type: string
+        extractionStatus:
+          type: string
+          enum:
+          - REQUESTED
+          - IN_PROGRESS
+          - SUCCESS
+          - FAILED 
+  
+    DocumentUrlModel:
+      title: DocumentUrlModel
+      type: object
+      properties:
+        fileUrl:
+          type: string
+    DocumentDetailsModel:
+      title: DocumentDetailsModel
+      type: object
+      properties:
+        fileName:
+          type: string
+        id:
+          type: integer
+          format: int64
+    AccountScoreStatusModel:
+      title: AccountScoreStatusModel
+      type: object
+      properties:
+        message:
+          type: string
+        status:
+          type: string
     LoginForm:
       title: LoginForm
       type: object

@@ -354,8 +354,7 @@ paths:
           description: Not Found
           content: {}
   
-      
-  /api/v1/{companyId}/classification/document/{documentId}:
+/api/v1/{companyId}/classification/document/{documentId}:
     get:
       tags:
         - Classification as a service
@@ -398,8 +397,7 @@ paths:
           description: Not Found
           content: {}
  
-
-  /api/v1/{companyId}/classification/document/{documentId}/status:
+/api/v1/{companyId}/classification/document/{documentId}/status:
     get:
       tags:
         - Classification as a service
@@ -443,7 +441,7 @@ paths:
           content: {}
     
 
-  /api/v1/{companyId}/classification/document/delete:
+/api/v1/{companyId}/classification/document/delete:
     delete:
       tags:
         - Classification as a service
@@ -499,7 +497,7 @@ paths:
           description: Forbidden
           content: {}
    
-  /api/v1/{companyId}/classification/reclassify:
+/api/v1/{companyId}/classification/reclassify:
     get:
       tags:
         - Classification as a service
@@ -557,7 +555,7 @@ paths:
           description: Not Found
           content: {}
    
-  /api/v1/{companyId}/classification/documents:
+/api/v1/{companyId}/classification/documents:
     get:
       tags:
         - Classification as a service
@@ -630,7 +628,7 @@ paths:
         '404':
           description: Not Found
           content: {}          
-  /api/v1/{companyId}/extraction/document:
+/api/v1/{companyId}/extraction/document:
     post:
       tags:
         - Extraction as a Service
@@ -720,7 +718,7 @@ paths:
           description: Not Found
           content: {}
    
-  /api/v1/{companyId}/extraction/document/{documentId}/status:
+/api/v1/{companyId}/extraction/document/{documentId}/status:
     get:
       tags:
         - Extraction as a Service
@@ -765,7 +763,7 @@ paths:
 
 
 
-  /api/v1/{companyId}/extraction/document/{documentId}:
+/api/v1/{companyId}/extraction/document/{documentId}:
     get:
       tags:
         - Extraction as a Service
@@ -808,7 +806,7 @@ paths:
           description: Not Found
           content: {}
           
-  /api/v1/{companyId}/extraction/delete-and-resubmit:
+/api/v1/{companyId}/extraction/delete-and-resubmit:
     post:
       tags:
       - Extraction as a Service
@@ -897,7 +895,7 @@ paths:
           description: Not Found
           content: {}
 
-  /api/v1/{companyId}/extraction/get-pdf-url/{documentId}:
+/api/v1/{companyId}/extraction/get-pdf-url/{documentId}:
     get:
       tags:
       - Extraction as a Service
@@ -939,7 +937,7 @@ paths:
         404:
           description: Not Found
           content: {}
-  /api/v1/{companyId}/extraction/retry-extraction/{documentId}:
+/api/v1/{companyId}/extraction/retry-extraction/{documentId}:
     get:
       tags:
       - Extraction as a Service
@@ -982,7 +980,7 @@ paths:
           description: Not Found
           content: {}          
           
-  /api/v1/{companyId}/extraction/update-extraction-data/{documentId}:
+/api/v1/{companyId}/extraction/update-extraction-data/{documentId}:
     post:
       tags:
       - Extraction as a Service
@@ -1041,7 +1039,7 @@ paths:
           content: {}
       x-codegen-request-body-name: data
       
-  /api/v1/{companyId}/extraction/{documentId}/status:
+/api/v1/{companyId}/extraction/{documentId}/status:
     get:
       tags:
       - Extraction as a Service
@@ -1084,7 +1082,7 @@ paths:
           description: Not Found
           content: {}
 
-  /api/v1/{companyId}/classification/documents/pagination:
+/api/v1/{companyId}/classification/documents/pagination:
     get:
       tags:
       - Classification as a service

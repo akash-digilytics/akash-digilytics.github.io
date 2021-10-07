@@ -167,7 +167,7 @@
         "tags": [
           "Add document"
         ],
-        "summary": "tsClassifyDocument",
+        "summary": "Classify Document",
         "operationId": "tsClassifyDocumentUsingPOST",
         "parameters": [
           {
